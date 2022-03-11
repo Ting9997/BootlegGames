@@ -1,0 +1,43 @@
+.title, .site-description{
+    display: flex;
+    /* border: 2px solid black; */
+    width: auto;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    background-color: #89cff0;
+    color: white;
+}
+
+.title{
+    font-size: 25px;
+}
+
+.bios-container{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #141414;
+}
+
+.bios{
+    border: 2px solid black;
+    height: 327px;
+    width: 15%;
+    background-color: white;
+    text-align: center;
+}
+
+.navbar{
+    background-color: #141414 !important;;
+}
+
+.nav-item{
+    background-color: #003d82 !important;
+    margin-left: 20px;
+}
+
+.nav-link{
+    color: white !important;
+}
