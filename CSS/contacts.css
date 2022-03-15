@@ -1,0 +1,64 @@
+.body{
+    background-image: url(/Images/Background.png);
+    background-size: 15rem 5rem;
+    background-position: left top;
+    background-repeat: repeat;
+    background-color: var(--cus-light-blue);
+}
+
+.body::-webkit-scrollbar{
+    width: 12px;
+    background-color: var(--cus-black);
+}
+
+.body::-webkit-scrollbar-thumb{
+    background-color: var(--cus-grey);
+    border-radius: 10px;
+}
+
+.title{
+    display: flex;
+    /* border: 2px solid black; */
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    color: var(--cus-white);
+    background-color: var(--cus-trans-blue);
+    font-family: var(--cus-title-font);
+    font-size: 6rem;
+    height: 10rem;
+}
+
+.navbar{
+    background-color: var(--cus-black) !important;;
+}
+
+.nav-item{
+    background-color: var(--cus-dark-blue) !important;
+    margin-left: 20px;
+}
+
+.nav-link{
+    color: var(--cus-white) !important;
+    font-family: var(--cus-title-font);
+}
+
+/* ================= Custom Styles ================= */
+:root{ /* cus = custom */
+    --cus-title-font: "Comic Sans MS";
+
+    --cus-black: #303030;
+    --cus-grey: #7a7a7a;
+    --cus-dark-blue:#0043a8 ;
+    --cus-light-blue: #89cff0;
+    --cus-green: #00C600;
+    --cus-pink: #F4279D;
+    --cus-white: #f0f0f0;
+
+    --cus-trans-blue: #89cff0d0;
+    --cus-trans-black: #30303020;
+}
+
+.scrollable-element{
+    scrollbar-color: var(--cus-black);
+}
