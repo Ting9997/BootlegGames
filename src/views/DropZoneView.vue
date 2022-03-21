@@ -1,20 +1,60 @@
-.body{
-    background-image: url(/Images/Background.png);
+<template>
+    <!--Navigation Bar-->
+    <NavBar/>
+
+    <div class="upper">
+        <!-- Title -->
+        <div class="title">Bootleg Games</div>
+        <div class="site-description">Welcome to the hub where mini games are normal and fun is limited to what we offer!</div>
+
+        <!-- Featured -->
+        <div class="featured">
+            <div>
+                <div class="image_container"><img alt="Place Holder" src="../assets/place_holder.png"></div>
+                <p class="game_title">This is where game name is</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bibliography -->
+    <div class="bios-container">
+        <div class="bios">Bios 1</div>
+        <div class="bios">Bios 2</div>
+        <div class="bios">Bios 3</div>
+        <div class="bios">Bios 4</div>
+        <div class="bios">Bios 5</div>
+    </div>
+</template>
+
+<script>
+import NavBar from '@/components/NavBar.vue'
+
+export default {
+    name: "DropZoneView",
+    components: {
+        NavBar
+    },
+}
+</script>
+
+<style lang="scss">
+.upper{
+    background-image: url(../assets/background.png);
     background-size: 15rem 5rem;
     background-position: left top;
     background-repeat: repeat;
     background-color: var(--cus-light-blue);
 }
 
-.body::-webkit-scrollbar{
-    width: 12px;
-    background-color: var(--cus-black);
-}
+// .body::-webkit-scrollbar{
+//     width: 12px;
+//     background-color: var(--cus-black);
+// }
 
-.body::-webkit-scrollbar-thumb{
-    background-color: var(--cus-grey);
-    border-radius: 10px;
-}
+// .body::-webkit-scrollbar-thumb{
+//     background-color: var(--cus-grey);
+//     border-radius: 10px;
+// }
 
 .title, .site-description{
     display: flex;
@@ -88,21 +128,6 @@
     text-align: center;
 }
 
-.navbar{
-    background-color: var(--cus-black) !important;;
-}
-
-.nav-item{
-    background-color: var(--cus-dark-blue) !important;
-    margin-left: 20px;
-}
-
-.nav-link{
-    color: var(--cus-white) !important;
-    font-family: var(--cus-title-font);
-}
-
-/* ================= Custom Styles ================= */
 :root{ /* cus = custom */
     --cus-title-font: "Comic Sans MS";
 
@@ -121,3 +146,4 @@
 .scrollable-element{
     scrollbar-color: var(--cus-black);
 }
+</style>
