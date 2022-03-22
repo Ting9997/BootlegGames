@@ -35,6 +35,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../styles/GlobalVariables.scss";
+
 .navbar{
     background-color: var(--cus-black) !important;;
 }

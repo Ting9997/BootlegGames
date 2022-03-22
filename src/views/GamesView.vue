@@ -4,24 +4,47 @@
 
     <!-- Games -->
     <BaseBackground>
-        <div>This is just temparay text for testing</div>
+        <!-- Title -->
+        <div class="title"> <!-- Using title class declared in DropZoneView.vue-->
+            Games
+        </div>
+    
+        <!-- Games List -->
+        <div class="contents">
+            <table>
+                <GameElement>
+                    Testing
+                </GameElement>
+            </table>
+        </div>
+        <div>This is just temprary text for testing</div>
     </BaseBackground>
+
+    <!-- Page Footer -->
 </template>
 
+<!-- _______________________________________________________________ -->
 <script>
 import NavBar from '@/components/NavBar.vue';
 import BaseBackground from '@/components/BaseBackground.vue';
+import GameElement from '@/components/GameElement.vue';
 
 export default {
     name: "GamesView",
     components: {
         NavBar,
-        BaseBackground
+        BaseBackground,
+        GameElement
     },
 }
 </script>
 
+<!-- _______________________________________________________________ -->
 <style lang='scss'>
 @import "../styles/GlobalVariables.scss";
+
+.contents{
+    background-color: var(--cus-trans-black);
+}
 
 </style>

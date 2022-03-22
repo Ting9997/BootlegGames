@@ -26,6 +26,7 @@
     </div>
 </template>
 
+<!-- _______________________________________________________________ -->
 <script>
 import NavBar from '@/components/NavBar.vue';
 import BaseBackground from '@/components/BaseBackground.vue';
@@ -39,16 +40,9 @@ export default {
 }
 </script>
 
+<!-- _______________________________________________________________ -->
 <style lang="scss">
 @import "../styles/GlobalVariables.scss";
-
-.upper{
-    background-image: url(../assets/background.png);
-    background-size: 15rem 5rem;
-    background-position: left top;
-    background-repeat: repeat;
-    background-color: var(--cus-light-blue);
-}
 
 .title, .site-description{
     display: flex;
@@ -120,9 +114,5 @@ export default {
     width: 15%;
     background-color: var(--cus-white);
     text-align: center;
-}
-
-.scrollable-element{
-    scrollbar-color: var(--cus-black);
 }
 </style>
