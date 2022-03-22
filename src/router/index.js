@@ -1,5 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import DropZoneView from '../views/DropZoneView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import DropZoneView from '../views/DropZoneView.vue';
+import GamesView from '../views/GamesView.vue';
 
 const routes = [
   {
@@ -7,6 +8,11 @@ const routes = [
     name: 'drop_zone',
     component: DropZoneView
   },
+  {
+    path: '/games',
+    name: 'games',
+    component: GamesView
+  }
   // {
   //   path: '/about',
   //   name: 'about',

@@ -2,7 +2,7 @@
     <!--Navigation Bar-->
     <NavBar/>
 
-    <div class="upper">
+    <BaseBackground>
         <!-- Title -->
         <div class="title">Bootleg Games</div>
         <div class="site-description">Welcome to the hub where mini games are normal and fun is limited to what we offer!</div>
@@ -14,7 +14,7 @@
                 <p class="game_title">This is where game name is</p>
             </div>
         </div>
-    </div>
+    </BaseBackground>
 
     <!-- Bibliography -->
     <div class="bios-container">
@@ -27,17 +27,21 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/NavBar.vue';
+import BaseBackground from '@/components/BaseBackground.vue';
 
 export default {
     name: "DropZoneView",
     components: {
-        NavBar
+        NavBar,
+        BaseBackground
     },
 }
 </script>
 
 <style lang="scss">
+@import "../styles/GlobalVariables.scss";
+
 .upper{
     background-image: url(../assets/background.png);
     background-size: 15rem 5rem;
@@ -45,16 +49,6 @@ export default {
     background-repeat: repeat;
     background-color: var(--cus-light-blue);
 }
-
-// .body::-webkit-scrollbar{
-//     width: 12px;
-//     background-color: var(--cus-black);
-// }
-
-// .body::-webkit-scrollbar-thumb{
-//     background-color: var(--cus-grey);
-//     border-radius: 10px;
-// }
 
 .title, .site-description{
     display: flex;
@@ -126,21 +120,6 @@ export default {
     width: 15%;
     background-color: var(--cus-white);
     text-align: center;
-}
-
-:root{ /* cus = custom */
-    --cus-title-font: "Comic Sans MS";
-
-    --cus-black: #303030;
-    --cus-grey: #7a7a7a;
-    --cus-dark-blue:#0043a8 ;
-    --cus-light-blue: #89cff0;
-    --cus-green: #00C600;
-    --cus-pink: #F4279D;
-    --cus-white: #f0f0f0;
-
-    --cus-trans-blue: #89cff0d0;
-    --cus-trans-black: #30303020;
 }
 
 .scrollable-element{
