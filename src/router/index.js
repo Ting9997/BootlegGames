@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import DropZoneView from '../views/DropZoneView.vue';
 import GamesView from '../views/GamesView.vue';
-
+import CheckersView from '../views/CheckersView.vue';
 const routes = [
   {
     path: '/',
@@ -12,6 +12,11 @@ const routes = [
     path: '/games',
     name: 'games',
     component: GamesView
+  },
+  {
+    path: '/checkers',
+    name: 'checkers',
+    component: CheckersView
   }
   // {
   //   path: '/about',

@@ -1,16 +1,35 @@
 <template>
-    <td>
-        This is just a block of text to fill up space
-    </td>
+    <table id="GameList">
+        <tr>
+            <td> <a class="nav-link" href="/checkers">Checkers Game</a></td>
+            <td>[Preview Image]</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
 </template>
 
 <!-- _______________________________________________________________ -->
 <script>
 export default {
     name: "GameElement",
-    props: {
-        
-    }
+    props:{
+
+    },
 }
 </script>
 
