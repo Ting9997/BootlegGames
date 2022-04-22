@@ -2,19 +2,25 @@ import { createRouter, createWebHistory } from 'vue-router';
 import DropZoneView from '../views/DropZoneView.vue';
 import GamesView from '../views/GamesView.vue';
 import CheckersView from '../views/CheckersView.vue';
+import SnakeView from '../views/SnakeView.vue';
 const routes = [
   {
     path: '/',
     name: 'drop_zone',
     component: DropZoneView
   },
-  {
+  {//=============== Games =================\\
     path: '/games',
     name: 'games',
     component: GamesView
   },
   {
-    path: '/checkers',
+    path: '/games/snake',
+    name: 'snake',
+    component: SnakeView
+  },
+  {
+    path: '/games/checkers',
     name: 'checkers',
     component: CheckersView
   }

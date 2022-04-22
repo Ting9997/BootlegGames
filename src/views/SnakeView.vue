@@ -1,48 +1,49 @@
 <template>
     <!--Navigation Bar-->
-    <NavBar/>
+    <nav-bar/>
 
-    <!-- Games -->
-    <BaseBackground>
+    <!-- Snake Game -->
+    <base-background>
         <!-- Title -->
         <div class="title"> <!-- Using title class declared in DropZoneView.vue-->
-            Games
+            Snake
         </div>
-    
-        <!-- Games List -->
-        <div class="contents">
-            <GameElement>
-                Testing
-            </GameElement>
-        </div>
-        <div>This is just temprary text for testing</div>
-    </BaseBackground>
 
-    <!-- Page Footer -->
+        <!-- Snake board -->
+        <snake-game-canvas/>
+
+        <!-- Footer -->
+        <div class='game_page_footer'>Developed by Andy Wang</div>
+    </base-background>
 </template>
 
 <!-- _______________________________________________________________ -->
 <script>
 import NavBar from '@/components/NavBar.vue';
 import BaseBackground from '@/components/BaseBackground.vue';
-import GameElement from '@/components/GameElement.vue';
-
+import SnakeGameCanvas from '@/components/SnakeGameCanvas.vue';
 export default {
-    name: "GamesView",
+    name: "CheckersView",
     components: {
         NavBar,
         BaseBackground,
-        GameElement
+        SnakeGameCanvas
     },
 }
 </script>
 
 <!-- _______________________________________________________________ -->
-<style lang='scss'>
+<style lang="scss">
 @import "../styles/GlobalVariables.scss";
 
-.contents{
+.td{
     background-color: var(--cus-trans-black);
 }
-
+.game_page_footer{
+    font-family: var(--cus-title-font);
+    font-size: medium;
+    background-color: var(--cus-black);
+    color: var(--cus-white);
+    height: 50px;
+}
 </style>

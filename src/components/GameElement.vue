@@ -1,12 +1,12 @@
 <template>
     <table id="GameList">
         <tr>
-            <td> <a class="nav-link" href="/checkers">Checkers Game</a></td>
+            <td> <a class="nav-link" href="/games/checkers">Checkers Game</a></td>
             <td>[Preview Image]</td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
+            <td> <a class="nav-link" href="/games/snake">The Snake Game</a></td>
+            <td>[Preview Image]</td>
         </tr>
         <tr>
             <td></td>
