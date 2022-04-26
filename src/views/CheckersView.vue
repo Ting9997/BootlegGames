@@ -10,7 +10,7 @@
     
         
         <div>Developed by Rajiv Williams</div>
-    
+        
 
         <!-- Checkers Game -->
         <div class="contents">
@@ -28,13 +28,15 @@
                   </table>
                 </td>
                 <td><table id="checkerBoard"></table></td>
-                <td><div id="whos_turn"></div></td>
+                <td>
+                  <svg id="whos_turn_background">
+                    <text id="whos_turn" x="15" y="55"></text>
+                  </svg>
+                </td>
               </tr>
             </table>
             
             <p id="printout"></p>
-            <img class="hidden black_checker" src="../assets/black_checker.jpg" alt="Black"/>
-                <img class="hidden red_checker" src="../assets/red_checker.webp" alt="Red"/>
         </div>
     </BaseBackground>
 </template>
@@ -45,6 +47,7 @@
 import NavBar from '@/components/NavBar.vue';
 import BaseBackground from '@/components/BaseBackground.vue';
 import $ from 'jquery';
+//import * as d3 from "d3";
 export default {
     name: "CheckersView",
     components: {
@@ -58,59 +61,58 @@ $(document).ready(function(){
 
     let board = $('#checkerBoard');
     createBoard(board); 
-    assignCheckers();
-    
-    // if(redTurn){$(".red_checker").click(showMoves);}
-    
-    // if(!redTurn){$(".black_checker").click(showMoves);}
-    $("#whos_turn").text("RED'S TURN");
-    $("span").click(showMoves);
+    assignCheckers();  
 
-      
-    
-    // if(redTurn){
-    //   $(".red_checker").click(function(){
-    //     document.getElementById("printout").innerHTML = "red";
-    //     redTurn = false;
-    //   });
-    // }
-    // if(!redTurn){
-    //   $(".black_checker").click(function(){
-        
-    //     document.getElementById("printout").innerHTML = "black";
-    //     redTurn = true;
-    //   });
-    // }
-    
+    //Initializing whos_turn
+    displayTurn("RED");
+    $("span").click(showMoves);    
 })
+
 //GLOBAL VARIABLES
 let checkerBoardSize = 8;
-let redTurn = true;
+
 //let currentColor = ".red_checker";
 /*
   For each cell in boardArray:
-    not playable = -2
+    not playable = null
     empty = -1
     black = 0
     red = 1
+    king = 2
 */
 let boardArray = make2DArray(checkerBoardSize);
 
-function assignColor(color,value,i,j){
-  var checker = $("<span>");
-  checker.attr("class",""+color+"_checker");
+//Red starts first
+let redTurn = true;
 
-  //add checker to current cell
-  $("#cell" + i + j).append(checker);
+function displayTurn(color){
+  $("#whos_turn").text(""+color+"'S TURN");
 
-  //Stores value of cell
-  //  black = 0
-  //  red = 1
-  boardArray[i][j] = value;
-
-  //Show Moves
-  //checker.click(showMoves);
+  if(color == "RED"){
+    $("#whos_turn").attr("fill","rgb(154, 0, 0)");
+    $("#whos_turn").attr("x","25");
+    $("#whos_turn_background").attr("style","background-color: #000000;border: 3px solid #9b1515;");
+  }
+  else{
+    $("#whos_turn").attr("fill",color);
+    $("#whos_turn").attr("x","15");
+    $("#whos_turn_background").attr("style","background-color: #ded8d8;border: 3px solid "+color+";");
+  } 
 }
+
+function makeKing(checker, color){  
+
+  if(color == "red"){
+    checker.attr("class","king_red");
+  }
+  else{
+    checker.attr("class","king_black");
+  }
+  
+  checker.attr("style","color: gray;");
+  checker.text("K");
+}
+
 
 //Puts checker pieces in their starting positions
 function assignCheckers(){
@@ -133,49 +135,92 @@ function assignCheckers(){
           }
           //Not playable
           else{
-            boardArray[i][j] = -2;
+            boardArray[i][j] = null;
           } 
         }
     }
     //document.getElementById("printout").innerHTML = boardArray;
 }
 
+function assignColor(color,value,i,j){
+  var checker = $("<span>");
+  checker.attr("class",""+color+"_checker");
+
+  //add checker to current cell
+  $("#cell" + i + j).append(checker);
+
+  //Stores value of cell
+  //  black = 0
+  //  red = 1
+  boardArray[i][j] = value;
+}
+
 function hideAllMoves(){
   for(var i=0; i<checkerBoardSize; i++){
-        for(var j=0; j<checkerBoardSize; j++){
-          //Only in black squares
-          if((i%2!=0 && j%2==0) || (i%2==0 && j%2!=0)){
-            //resets to default black square
-            $("#cell" + i + j).attr("class","blackSquare");
-          }
+      for(var j=0; j<checkerBoardSize; j++){
+        //Only in black squares
+        if((i%2!=0 && j%2==0) || (i%2==0 && j%2!=0)){
+          //resets to default black square
+          $("#cell" + i + j).attr("class","blackSquare");
         }
-    }
+      }
+  }
 }
-//let moveMade = false;
 
-function checkAvailability(pieceMoves){
+function checkAvailability(pieceMoves,currCoords,isJump){
   //document.getElementById("printout").innerHTML = $("cell"+pieceMoves[0]+pieceMoves[1]).children().length;
-  if($("#cell"+pieceMoves[0]+pieceMoves[1]).children().length == 0){
-  //if($("cell"+pieceMoves[0]+pieceMoves[1]).children().length == 0){
-    //document.getElementById("printout").innerHTML = "cell"+currCoords[0]+currCoords[1];
-    var newCell = $("#cell"+(pieceMoves[0])+(pieceMoves[1]));
-    newCell.attr("class","glow");
+  // var newX = parseInt(pieceMoves[0]);
+  // var newY = parseInt(pieceMoves[1]);
+  var x = currCoords[0];
+  var y = currCoords[1];
+  var newX = parseInt(pieceMoves[0]);
+  var newY = parseInt(pieceMoves[1]);
+  var newCell = $("#cell"+(newX)+(newY));
 
+  if(newCell.children().length == 0){
+    addGlow(x,y,newX,newY,isJump);
+    return true;
+  }
+  return false;
+}
+
+function addGlow(x,y,newX,newY,isJump){
+  var oldCell = $("#cell"+x+y);
+  var newCell = $("#cell"+(newX)+(newY));
+
+  var checker = $(oldCell.children()[0]);
+  var checkerColor = checker.attr("class").split("_")[0];
+
+  if(isJump){
+    var deleteCoords = [(newX + x) /2,(newY + y) / 2];
+    var deleteChecker = $($("#cell"+deleteCoords[0]+deleteCoords[1]).children()[0]);
+    var deleteColor = deleteChecker.attr("class").split("_")[0];
+
+    //remove checker that is jumped over
+    if(deleteColor != checkerColor){
+      newCell.attr("class","glow");
+      return true;
+    }
+  }
+  else{
+    newCell.attr("class","glow");
     return true;
   }
   return false;
 }
 
 function makeMove(pieceMoves,pieceValue,currCoords,isJump){
-  var newCell = $("#cell"+(pieceMoves[0])+(pieceMoves[1]));
+  var x = currCoords[0];
+  var y = currCoords[1];
+  var newX = parseInt(pieceMoves[0]);
+  var newY = parseInt(pieceMoves[1]);
+
+  var newCell = $("#cell"+(newX)+(newY));
 
   if(newCell.attr("class") == "glow"){
     newCell.click(function(){
-      if($(this).children().length == 0){
-        changeCells($(this),currCoords[0],currCoords[1],isJump);
-        //newCell.attr("class","blackSquare");
-        boardArray[pieceMoves[0]][pieceMoves[1]] = pieceValue;
-        boardArray[currCoords[0]][currCoords[1]] = -1; 
+      if($(this).children().length == 0 && boardArray[x][y] == pieceValue && boardArray[newX][newY] == -1){
+        changeCells($(this),pieceValue,x,y,isJump);
         return true;
       }
     });
@@ -183,227 +228,170 @@ function makeMove(pieceMoves,pieceValue,currCoords,isJump){
   return false;
 }
 
-
-//let redTurn = true;
-//Shows available moves once a checker piece is clicked
-//returns available moves
-function showMoves(){
-  
-  //hide all moves
-  hideAllMoves();
-
-  
-  var currChecker = $(this);
-  var currCell = currChecker.parent();
-  var checkerColor = currChecker.attr("class").split("_")[0];
-  if((redTurn && checkerColor == "red") || (!redTurn && checkerColor == "black")){
-    currCell.attr("class","selected");
-    var coords = currCell.attr("id").split("cell")[1];
-    var i = parseInt(coords[0]);
-    var j = parseInt(coords[1]);
-    var currCoords = [i,j];
-
-    //var checkerColor = currChecker.attr("class").split("_")[0];
-  
-    var redMoves = [[i-1,j-1],[i-1,j+1],[i-2,j-2],[i-2,j+2]];
-    var blackMoves = [[i+1,j-1],[i+1,j+1],[i+2,j-2],[i+2,j+2]];
-    //var moves = [redMoves,blackMoves];
-    //var kingValue = 2;
-    var redValue = 1;
-    var blackValue = 0;
-    
-    
-    //RED MOVES
-      // if($(currCell.children()[0]).attr("class") == "red_checker"){
-        
-      // }
-
-      // //Diagonal Left Once
-      // var redLeft = checkAvailability(redMoves[0],redValue,currCoords,false);
-      // var blackLeft =  checkAvailability(blackMoves[0],blackValue,currCoords,false);
-
-      // //Diagonal Right Once
-      // var redRight =  checkAvailability(redMoves[1],redValue,currCoords,false);
-      // var blackRight =  checkAvailability(blackMoves[1],blackValue,currCoords,false);
-
-
-      //Diagonal Left Once
-      // checkAvailability(redMoves[0],redValue,currCoords,false);
-      // checkAvailability(blackMoves[0],blackValue,currCoords,false)
-
-      //Diagonal Right Once
-      //checkAvailability(redMoves[1],redValue,currCoords,false);
-      //checkAvailability(blackMoves[1],blackValue,currCoords,false);
-
-      //Left Jump
-      // if(!redLeft){checkAvailability(redMoves[2],redValue,currCoords,true);}
-      // if(!blackLeft){checkAvailability(blackMoves[2],blackValue,currCoords,true);}
-
-      // //Right Jump
-      // if(!redRight){checkAvailability(redMoves[3],redValue,currCoords,true);}
-      // if(!blackRight){checkAvailability(blackMoves[3],blackValue,currCoords,true);}
-
-      
-    //let blackTurn = true;
-    //BLACK MOVES
-      // if($(currCell.children()[0]).attr("class") == "black_checker"){
-      //   currCell.attr("class","selected");
-      // }
-      // var decision = false;
-      // //Diagonal Left Once
-      // if(checkAvailability(blackMoves[0])){
-      //   decision = makeMove(blackMoves[0],blackValue,currCoords,false);
-      //   if(decision){
-      //     return decision;
-      //   }
-      // }
-
-      // //Diagonal Right Once
-      // if(checkAvailability(blackMoves[1])){
-      //   decision = makeMove(blackMoves[1],blackValue,currCoords,false);
-      //   if(decision){
-      //     return decision;
-      //   }
-      // }
-    
-      //Left Jump
-      // if(!blackLeft){checkAvailability(blackMoves[2],blackValue,currCoords,true);}
-
-      //Right Jump
-      // if(!blackRight){checkAvailability(blackMoves[3],blackValue,currCoords,true);}
-
-      //RED MOVES
-      //if(redTurn && checkerColor == "red" && currentColor == ".red_checker"){
-      if(redTurn){
-        //Left Once
-        var leftRed = checkAvailability(redMoves[0]);
-        
-        if(leftRed){
-          makeMove(redMoves[0],redValue,currCoords,false);
-        }
-        else{
-          var leftJumpRed = checkAvailability(redMoves[2]);
-          if(leftJumpRed){
-            makeMove(redMoves[2],redValue,currCoords,true);
-          }
-        }
-
-        var rightRed = checkAvailability(redMoves[1]);
-        if(rightRed){
-          makeMove(redMoves[1],redValue,currCoords,false);
-        }
-        else{
-          var rightJumpRed = checkAvailability(redMoves[3]);
-          if(rightJumpRed){
-            makeMove(redMoves[3],redValue,currCoords,true);
-          }
-        }
-
-        //Right Once
-        // checkAvailability(redMoves[1]);
-        // makeMove(redMoves[1],redValue,currCoords,false);
-
-        //document.getElementById("printout").innerHTML = currentColor;
-      }
-      //BLACK MOVES
-      //else if(!redTurn && checkerColor == "black" && currentColor == ".black_checker"){
-      else{  
-        //Left Once
-        var leftBlack = checkAvailability(blackMoves[0]);
-        if(leftBlack){
-          makeMove(blackMoves[0],blackValue,currCoords,false);
-        }
-        else{
-          var leftJumpBlack = checkAvailability(blackMoves[2]);
-          if(leftJumpBlack){
-            makeMove(blackMoves[2],blackValue,currCoords,true);
-          }
-        }
-
-        var rightBlack = checkAvailability(blackMoves[1]);
-        if(rightBlack){
-          makeMove(blackMoves[1],blackValue,currCoords,false);
-        }
-        else{
-          var rightJumpBlack = checkAvailability(blackMoves[3]);
-          if(rightJumpBlack){
-            makeMove(blackMoves[3],blackValue,currCoords,true);
-          }
-        }
-
-        //Right Once
-        // checkAvailability(blackMoves[1]);
-        // makeMove(blackMoves[1],blackValue,currCoords,false);
-        //document.getElementById("printout").innerHTML = currentColor;
-
-      }
-  }
-}
-function changeTurn(){
-  if(redTurn){
-    
-    redTurn = false;
-    $("#whos_turn").text("BLACK'S TURN");
-    //currentColor = ".black_checker";
-    return false;
-  }
-  if(!redTurn){
-    
-    redTurn = true;
-    $("#whos_turn").text("RED'S TURN");
-    //currentColor = ".red_checker";
-    return true;
-  }
-}
-function changeCells(newCell,x,y,isJump){
+function changeCells(newCell,pieceValue,x,y,isJump){
 
   var oldCell = $("#cell"+x+y);
   var newCoords = newCell.attr("id").split("cell")[1];
-  var newX =parseInt(newCoords[0]);
+  var newX = parseInt(newCoords[0]);
   var newY = parseInt(newCoords[1]);
 
   var checker = $(oldCell.children()[0]);
-  var checkerColor = checker.attr("class");
-  //var newColor = $(newCell.children()[0]).attr("class");
-  var move = true;
-  //Only one piece in a cell at a time
-  
-    //If an opposite color is being jumped over
-    if(isJump){
-      //index of checker being jumped over is the
-      //average of oldCell coordinates and newCell coordinates
-      var deleteCoords = [(newX + x) /2,(newY + y) / 2];
-      var deleteChecker = $($("#cell"+deleteCoords[0]+deleteCoords[1]).children()[0]);
-      var deleteColor = deleteChecker.attr("class");
+  var checkerColor = checker.attr("class").split("_")[0];
 
-      //remove checker that is jumped over
-      if(deleteColor != checkerColor){
-        deleteChecker.remove();
-        boardArray[deleteCoords[0]][deleteCoords[1]] = -1;
-      }
-      else{
-        move = false;
-      }
-      
-    }
-
-    //var newChecker = oldChecker;
-    //moving checker to new cell
-    //oldCell.removeChild(checker);
-    if(oldCell.attr("class") == "selected" && move){
-      newCell.append(checker);
-      hideAllMoves();
-    }
-    
-
-    //oldCell.attr("class","blackSquare");
-    if(newCell.children().length > 0){
-      changeTurn();
-    }
-    
-    document.getElementById("printout").innerHTML = checker.parent().attr("id");
+  //a move can be made
+  var canMove = true;
   
+  //If an opposite color is being jumped over
+  if(isJump){
+    //index of checker being jumped over is the
+    //average of oldCell coordinates and newCell coordinates
+    var deleteCoords = [(newX + x) /2,(newY + y) / 2];
+    var deleteChecker = $($("#cell"+deleteCoords[0]+deleteCoords[1]).children()[0]);
+    var deleteColor = deleteChecker.attr("class").split("_")[0];
+
+    //remove checker that is jumped over if it is not the same color as current checker
+    if(deleteColor != checkerColor){
+      deleteChecker.remove();
+      boardArray[deleteCoords[0]][deleteCoords[1]] = -1;
+    }
+    else{
+      //a move cannot be made
+      canMove = false;
+    }  
+  }
+
+  //moving checker to new cell
+  if(oldCell.attr("class") == "selected" && canMove){
+    newCell.append(checker);
+    boardArray[newX][newY] = pieceValue;
+    boardArray[x][y] = -1; 
+    hideAllMoves();
+
+    //if reached opposite end of checkerBoard
+    if((checkerColor == "red" && newX == 0) || (checkerColor == "black" && newX == 7)){
+      //make current checker a King
+      makeKing(checker,checkerColor);
+    }        
+  }
+
+  //if new cell is successfully occupied
+  if(newCell.children().length > 0){
+    changeTurn();
+  }  
+}
+
+//Shows available moves once a checker piece is clicked
+//returns available moves
+function showMoves(){
+
+  //initially hides moves whenever function activated when clicked
+  hideAllMoves();
+
+  //checker that was clicked
+  var currChecker = $(this);
+  var currCell = currChecker.parent();
+
+  //details that come in the form: "type_(checker/kingColor)" eg. "red_checker" or "king_red"
+  var checkerDetails = currChecker.attr("class").split("_");
+
+  //type of checker: red, black or king
+  var checkerType = checkerDetails[0];   
   
+  //"checker" = not a king
+  //"red" or "black" = is a king
+  var kingColor = checkerDetails[1];
+
+  //checker coordinates in the checkerBoard
+  var coords = currCell.attr("id").split("cell")[1];
+  var x = parseInt(coords[0]);
+  var y = parseInt(coords[1]);
+  var currCoords = [x,y];
+
+  //all possible moves for red and black checkers
+  var redMoves = [[x-1,y-1],[x-1,y+1],[x-2,y-2],[x-2,y+2]];
+  var blackMoves = [[x+1,y-1],[x+1,y+1],[x+2,y-2],[x+2,y+2]];
+  
+  //value of red and black checkers in the boardArray
+  var redValue = 1;
+  var blackValue = 0;
+
+  //RED MOVES
+  if(redTurn){
+    //if the current checker is a normal red or a red king
+    if(checkerType == "red" || kingColor == "red"){
+      currCell.attr("class","selected");
+
+      //given access to moves for a red checker
+      checkerMoves(redMoves,redValue,currCoords);
+    }
+    //if the current checker is a red king
+    if(checkerType == "king" && kingColor == "red"){
+
+      //given access to moves for a black checker
+      checkerMoves(blackMoves,redValue,currCoords);
+    }
+  }
+  //BLACK MOVES
+  else if(!redTurn){  
+    //if the current checker is a normal black or a black king
+    if(checkerType == "black" || kingColor == "black"){
+      currCell.attr("class","selected");
+
+      //given access to moves for a black checker
+      checkerMoves(blackMoves,blackValue,currCoords);
+    }
+    //if the current checker is a black king
+    if(checkerType == "king" && kingColor == "black"){
+
+      //given access to moves for a red checker
+      checkerMoves(redMoves,blackValue,currCoords);
+    }
+  }
+}
+
+function checkerMoves(moves,checkerValue,currCoords){
+  //checking if you can move left once
+  var leftStep = checkAvailability(moves[0],currCoords,false);
+  if(leftStep){
+    //granted access to move left once
+    makeMove(moves[0],checkerValue,currCoords,false);
+  }
+  else{
+    //checking if you can jump left once over a checker
+    var leftJump = checkAvailability(moves[2],currCoords,true);
+    if(leftJump){
+      //granted access to jump left once
+      makeMove(moves[2],checkerValue,currCoords,true);
+    }
+  }
+  
+  //checking if you can move right once
+  var rightStep = checkAvailability(moves[1],currCoords,false);
+  if(rightStep){
+    //granted access to move right once
+    makeMove(moves[1],checkerValue,currCoords,false);
+  }
+  else{
+    //checking if you can jump right once over a checker
+    var rightJump = checkAvailability(moves[3],currCoords,true);
+    if(rightJump){
+      //granted access to jump right once
+      makeMove(moves[3],checkerValue,currCoords,true);
+    }
+  }
+}
+
+function changeTurn(){
+  if(redTurn){
+    redTurn = false;
+    displayTurn("BLACK");
+    return false;
+  }
+  if(!redTurn){
+    redTurn = true;
+    displayTurn("RED");
+    return true;
+  }
 }
 
 //Dynamically creates the checkerBoard
@@ -517,6 +505,24 @@ function changeCells(newCell,x,y,isJump){
     border-radius: 50%;
     display: inline-block;
 }
+
+//To-do change to .redKing
+.king_red{
+    height: 46px;
+    width: 46px;
+    background-color: rgb(154, 0, 0);
+    border: 1px solid white;
+    border-radius: 50%;
+    display: inline-block;
+}
+.king_black{
+    height: 46px;
+    width: 46px;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 50%;
+    display: inline-block;
+}
 .hidden{
   display:none;
 }
@@ -530,19 +536,28 @@ function changeCells(newCell,x,y,isJump){
 
 #howToPlay{
   background-color: #ded8d8;
+  position: relative;
+  right: 80px;
   width: 100%;
 }
 
+//displays whose turn it is currently
 #whos_turn{
-  background-color: #ded8d8;
-  width: 50px;
+  font: bold 15px sans-serif;
 }
 
-//a cell in sudoku board is vacant
+#whos_turn_background{
+  width: 50%;
+  height: 100px;
+  background-color: #ded8d8;
+  border: 3px solid #2d2a2a;
+  border-collapse: collapse;
+}
+
+//a cell in sudoku board is available to move to
 .glow{
   background-color: blanchedalmond;
   color: blanchedalmond;
-  //padding-block: 20%;
 }
 
 
