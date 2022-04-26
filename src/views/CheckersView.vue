@@ -29,8 +29,9 @@
                 </td>
                 <td><table id="checkerBoard"></table></td>
                 <td>
-                  <svg id="whos_turn_background">
+                  <svg id="gameCond_background">
                     <text id="whos_turn" x="15" y="55"></text>
+                    <text id="who_won" x="15" y="55"></text>
                   </svg>
                 </td>
               </tr>
@@ -47,31 +48,37 @@
 import NavBar from '@/components/NavBar.vue';
 import BaseBackground from '@/components/BaseBackground.vue';
 import $ from 'jquery';
-//import * as d3 from "d3";
+import * as d3 from "d3";
 export default {
     name: "CheckersView",
     components: {
         NavBar,
         BaseBackground
     },
-    
+    mounted(){
+      let board = $('#checkerBoard');
+      createBoard(board); 
+      assignCheckers();  
+
+      //Initializing whos_turn
+      displayTurn("RED");
+
+      if(!gameEnd){
+        $("span").click(showMoves);
+      }
+      
+    }
 }
 
-$(document).ready(function(){
+//-------GLOBAL VARIABLES-------
 
-    let board = $('#checkerBoard');
-    createBoard(board); 
-    assignCheckers();  
+//Red starts first
+let redTurn = true;
 
-    //Initializing whos_turn
-    displayTurn("RED");
-    $("span").click(showMoves);    
-})
-
-//GLOBAL VARIABLES
+let gameEnd = false;
 let checkerBoardSize = 8;
 
-//let currentColor = ".red_checker";
+let boardArray = make2DArray(checkerBoardSize);
 /*
   For each cell in boardArray:
     not playable = null
@@ -80,26 +87,127 @@ let checkerBoardSize = 8;
     red = 1
     king = 2
 */
-let boardArray = make2DArray(checkerBoardSize);
 
-//Red starts first
-let redTurn = true;
+//-------MAIN CHECKERS GAME FUNCTIONS-------
 
+/*
+  Checks all possible final game outcomes
+
+  variables:
+    -isTrapped = if a checker cannot move
+*/
+function checkWinCond(isTrapped){
+
+  //the amount of each checker according to color
+  var redCount = 0;
+  var blackCount = 0;
+
+  for(var i = 0; i < boardArray.length; i++){
+    for(var j = 0; j < boardArray.length; j++){
+      if(boardArray[i][j] == 0){
+        blackCount += 1;
+      }
+      if(boardArray[i][j] == 1){
+        redCount += 1;
+      }
+    }
+  }
+
+  if(!isTrapped){
+    if(redCount == 1 && blackCount == 1){
+      //draw
+      displayWin("NONE");
+      return true;
+    }
+    if(blackCount == 0){
+      //red wins
+      displayWin("RED");
+      return true;
+    }
+    if(redCount == 0){
+      //black wins
+      displayWin("BLACK");
+      return true;
+    }
+  }
+  //if a piece is trapped
+  else{
+    if(blackCount == 1 && (redCount > blackCount)){
+      //red wins
+      displayWin("RED");
+      return true;
+    }
+    if(redCount == 1 && (redCount < blackCount)){
+      //black wins
+      displayWin("BLACK");
+      return true;
+    }
+  }
+  return false;
+}
+
+//Displays which color has won or if there is a draw
+function displayWin(color){
+
+  //Hide who's turn it is
+  $("#whos_turn").attr("class","hidden");
+
+  $("#who_won").text(""+color+" WON!");
+  if(color == "RED"){
+    d3.select("#who_won")
+      .attr("fill","rgb(154, 0, 0)")
+      .attr("x","35");
+    
+    d3.select("#gameCond_background")
+      .style("background-color","#ded8d8")
+      .style("border","3px solid #9b1515");
+  }
+  if(color == "BLACK"){
+    d3.select("#who_won")
+      .attr("fill",color)
+      .attr("x","25");
+    
+    d3.select("#gameCond_background")
+      .style("background-color","#ded8d8")
+      .style("border","3px solid "+color);
+  }
+  if(color == "NONE"){
+    $("#who_won").text("DRAW");
+    d3.select("#who_won")
+      .attr("fill","black")
+      .attr("x","47");
+    
+    d3.select("#gameCond_background")
+      .style("background-color","#ded8d8")
+      .style("border","3px solid black");
+  }
+}
+
+//Displays which color has a turn
 function displayTurn(color){
   $("#whos_turn").text(""+color+"'S TURN");
 
   if(color == "RED"){
-    $("#whos_turn").attr("fill","rgb(154, 0, 0)");
-    $("#whos_turn").attr("x","25");
-    $("#whos_turn_background").attr("style","background-color: #000000;border: 3px solid #9b1515;");
+    d3.select("#whos_turn")
+      .attr("fill","rgb(154, 0, 0)")
+      .attr("x","25");
+    
+    d3.select("#gameCond_background")
+      .style("background-color","#000000")
+      .style("border","3px solid #9b1515");
   }
   else{
-    $("#whos_turn").attr("fill",color);
-    $("#whos_turn").attr("x","15");
-    $("#whos_turn_background").attr("style","background-color: #ded8d8;border: 3px solid "+color+";");
+    d3.select("#whos_turn")
+      .attr("fill",color)
+      .attr("x","15");
+    
+    d3.select("#gameCond_background")
+      .style("background-color","#ded8d8")
+      .style("border","3px solid "+color);
   } 
 }
 
+//Makes a normal checker a king checker
 function makeKing(checker, color){  
 
   if(color == "red"){
@@ -142,19 +250,21 @@ function assignCheckers(){
     //document.getElementById("printout").innerHTML = boardArray;
 }
 
-function assignColor(color,value,i,j){
+//Helper function for assignCheckers()
+function assignColor(color,value,x,y){
   var checker = $("<span>");
   checker.attr("class",""+color+"_checker");
 
   //add checker to current cell
-  $("#cell" + i + j).append(checker);
+  $("#cell" + x + y).append(checker);
 
   //Stores value of cell
   //  black = 0
   //  red = 1
-  boardArray[i][j] = value;
+  boardArray[x][y] = value;
 }
 
+//Hides all highlights of cells where applicable
 function hideAllMoves(){
   for(var i=0; i<checkerBoardSize; i++){
       for(var j=0; j<checkerBoardSize; j++){
@@ -167,16 +277,22 @@ function hideAllMoves(){
   }
 }
 
-function checkAvailability(pieceMoves,currCoords,isJump){
-  //document.getElementById("printout").innerHTML = $("cell"+pieceMoves[0]+pieceMoves[1]).children().length;
-  // var newX = parseInt(pieceMoves[0]);
-  // var newY = parseInt(pieceMoves[1]);
+/*
+  Shows available moves according to a checker's color and current coordinates
+
+  variables:
+    -moves = coordinates of possible move
+    -currCoords = current coordinates
+    -isJump = boolean of whether or not the move is a jump move
+*/
+function checkAvailability(moves,currCoords,isJump){
   var x = currCoords[0];
   var y = currCoords[1];
-  var newX = parseInt(pieceMoves[0]);
-  var newY = parseInt(pieceMoves[1]);
+  var newX = parseInt(moves[0]);
+  var newY = parseInt(moves[1]);
   var newCell = $("#cell"+(newX)+(newY));
 
+  //if the cell is vacant and doesn't have a checker
   if(newCell.children().length == 0){
     addGlow(x,y,newX,newY,isJump);
     return true;
@@ -184,6 +300,14 @@ function checkAvailability(pieceMoves,currCoords,isJump){
   return false;
 }
 
+/*
+  Highlights a cell where a checker can move
+
+  variables:
+    -x,y = coordinates of current checker
+    -newX,newY = coordinates of potentially available cell
+    -isJump = boolean of whether or not the move is a jump move
+*/
 function addGlow(x,y,newX,newY,isJump){
   var oldCell = $("#cell"+x+y);
   var newCell = $("#cell"+(newX)+(newY));
@@ -191,17 +315,27 @@ function addGlow(x,y,newX,newY,isJump){
   var checker = $(oldCell.children()[0]);
   var checkerColor = checker.attr("class").split("_")[0];
 
+  //if a jump move is being made
   if(isJump){
+    //coordinates of cell that is being jumped over (average of new and old cell coordinates)
     var deleteCoords = [(newX + x) /2,(newY + y) / 2];
+
+    //checker that is being deleted
     var deleteChecker = $($("#cell"+deleteCoords[0]+deleteCoords[1]).children()[0]);
+
+    //color of checker being deleted
     var deleteColor = deleteChecker.attr("class").split("_")[0];
 
-    //remove checker that is jumped over
+    /*
+      if checker being deleted is a different color
+      (makes sure a jump cannot take place with same colored checkers)
+    */
     if(deleteColor != checkerColor){
       newCell.attr("class","glow");
       return true;
     }
   }
+  //if a regular step move is being made
   else{
     newCell.attr("class","glow");
     return true;
@@ -209,18 +343,30 @@ function addGlow(x,y,newX,newY,isJump){
   return false;
 }
 
-function makeMove(pieceMoves,pieceValue,currCoords,isJump){
+/*
+  Allows a move to be made in the relevant coordinates
+
+  variables:
+    -moves = coordinates of possible move
+    -checkerValue = color value of the checker
+    -currCoords = current coordinates
+    -isJump = boolean of whether or not the move is a jump move
+*/
+function makeMove(moves,checkerValue,currCoords,isJump){
   var x = currCoords[0];
   var y = currCoords[1];
-  var newX = parseInt(pieceMoves[0]);
-  var newY = parseInt(pieceMoves[1]);
+  var newX = parseInt(moves[0]);
+  var newY = parseInt(moves[1]);
 
   var newCell = $("#cell"+(newX)+(newY));
 
+  //if cell is available
   if(newCell.attr("class") == "glow"){
+    //new cell can be clickable
     newCell.click(function(){
-      if($(this).children().length == 0 && boardArray[x][y] == pieceValue && boardArray[newX][newY] == -1){
-        changeCells($(this),pieceValue,x,y,isJump);
+      //if new cell is empty and the checker being used is the same as its pieceValue (to double check)
+      if($(this).children().length == 0 && boardArray[x][y] == checkerValue && boardArray[newX][newY] == -1){
+        changeCells($(this),checkerValue,x,y,isJump);
         return true;
       }
     });
@@ -228,6 +374,15 @@ function makeMove(pieceMoves,pieceValue,currCoords,isJump){
   return false;
 }
 
+/*
+  Changes cells accordingly if conditions are met
+
+  variables:
+    -newCell = cell the checker is being moved to
+    -pieceValue = the color value of the checker
+    -x,y = coordinates of the checker
+    -isJump = boolean of whether or not the move is a jump move
+*/
 function changeCells(newCell,pieceValue,x,y,isJump){
 
   var oldCell = $("#cell"+x+y);
@@ -241,12 +396,15 @@ function changeCells(newCell,pieceValue,x,y,isJump){
   //a move can be made
   var canMove = true;
   
-  //If an opposite color is being jumped over
+  //if a jump move is being made
   if(isJump){
-    //index of checker being jumped over is the
-    //average of oldCell coordinates and newCell coordinates
+    //coordinates of cell that is being jumped over (average of new and old cell coordinates)
     var deleteCoords = [(newX + x) /2,(newY + y) / 2];
+
+    //checker that is being deleted
     var deleteChecker = $($("#cell"+deleteCoords[0]+deleteCoords[1]).children()[0]);
+
+    //color of checker being deleted
     var deleteColor = deleteChecker.attr("class").split("_")[0];
 
     //remove checker that is jumped over if it is not the same color as current checker
@@ -271,7 +429,10 @@ function changeCells(newCell,pieceValue,x,y,isJump){
     if((checkerColor == "red" && newX == 0) || (checkerColor == "black" && newX == 7)){
       //make current checker a King
       makeKing(checker,checkerColor);
-    }        
+    }      
+    
+    //check winning condition every time a move is made
+    gameEnd = checkWinCond(false);
   }
 
   //if new cell is successfully occupied
@@ -280,8 +441,10 @@ function changeCells(newCell,pieceValue,x,y,isJump){
   }  
 }
 
-//Shows available moves once a checker piece is clicked
-//returns available moves
+/*
+  When a checker is clicked, this function shows 
+  its moves and gives access to possible move options
+*/
 function showMoves(){
 
   //initially hides moves whenever function activated when clicked
@@ -349,7 +512,20 @@ function showMoves(){
   }
 }
 
+/* 
+  Helper function to showMoves() which checks which moves can be made
+  with the relevant checker.
+
+  variables:
+    -moves = a 2d array of all possible moves of the relevant checker
+    -checkerValue = the color value of the relevant checker
+    -currCoords = the current coordinates of the relevant checker
+*/
 function checkerMoves(moves,checkerValue,currCoords){
+
+  //LEFT MOVES
+  var leftJump = false;
+
   //checking if you can move left once
   var leftStep = checkAvailability(moves[0],currCoords,false);
   if(leftStep){
@@ -358,12 +534,15 @@ function checkerMoves(moves,checkerValue,currCoords){
   }
   else{
     //checking if you can jump left once over a checker
-    var leftJump = checkAvailability(moves[2],currCoords,true);
+    leftJump = checkAvailability(moves[2],currCoords,true);
     if(leftJump){
       //granted access to jump left once
       makeMove(moves[2],checkerValue,currCoords,true);
     }
   }
+
+  //RIGHT MOVES
+  var rightJump = false;
   
   //checking if you can move right once
   var rightStep = checkAvailability(moves[1],currCoords,false);
@@ -373,14 +552,20 @@ function checkerMoves(moves,checkerValue,currCoords){
   }
   else{
     //checking if you can jump right once over a checker
-    var rightJump = checkAvailability(moves[3],currCoords,true);
+    rightJump = checkAvailability(moves[3],currCoords,true);
     if(rightJump){
       //granted access to jump right once
       makeMove(moves[3],checkerValue,currCoords,true);
     }
   }
+
+  //if checker is trapped
+  if(!leftStep && !leftJump && !rightStep && !rightJump){
+    gameEnd = checkWinCond(true);
+  }
 }
 
+//Toggles between the turns of red and black checkers
 function changeTurn(){
   if(redTurn){
     redTurn = false;
@@ -395,31 +580,31 @@ function changeTurn(){
 }
 
 //Dynamically creates the checkerBoard
-  function createBoard(board){  
-      //Assigning cells to 'board'
-      for(var i=0; i<checkerBoardSize; i++){
-          var tr = $('<tr>');
-          for(var j=0; j<checkerBoardSize; j++){
-              var td = $('<td>');
-              td.attr('id', 'cell' + i + j);
-              td.attr("class","blackSquare");
-              tr.append(td);
-          }
-          board.append(tr);
+function createBoard(board){  
+  //Assigning cells to 'board'
+  for(var i=0; i<checkerBoardSize; i++){
+      var tr = $('<tr>');
+      for(var j=0; j<checkerBoardSize; j++){
+          var td = $('<td>');
+          td.attr('id', 'cell' + i + j);
+          td.attr("class","blackSquare");
+          tr.append(td);
       }
-      
+      board.append(tr);
+  }
+    
+}
+
+//Makes a 2D array given a size
+function make2DArray(size){
+  var array = new Array(size);
+
+  for(var i=0; i<size; i++){
+      array[i] = new Array(size);
   }
 
-//---HELPER FUNCTIONS---
-  function make2DArray(size){
-      var array = new Array(size);
-
-      for(var i=0; i<size; i++){
-          array[i] = new Array(size);
-      }
-
-      return array;
-  }
+  return array;
+}
 
 </script>
 
@@ -546,7 +731,11 @@ function changeTurn(){
   font: bold 15px sans-serif;
 }
 
-#whos_turn_background{
+#who_won{
+  font: bold 15px sans-serif;
+}
+
+#gameCond_background{
   width: 50%;
   height: 100px;
   background-color: #ded8d8;
