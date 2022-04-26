@@ -28,7 +28,7 @@
                   </table>
                 </td>
                 <td><table id="checkerBoard"></table></td>
-                <td><div id="whos_turn">RED'S TURN</div></td>
+                <td><div id="whos_turn"></div></td>
               </tr>
             </table>
             
@@ -63,7 +63,7 @@ $(document).ready(function(){
     // if(redTurn){$(".red_checker").click(showMoves);}
     
     // if(!redTurn){$(".black_checker").click(showMoves);}
-    
+    $("#whos_turn").text("RED'S TURN");
     $("span").click(showMoves);
 
       
@@ -341,12 +341,16 @@ function showMoves(){
 }
 function changeTurn(){
   if(redTurn){
+    
     redTurn = false;
+    $("#whos_turn").text("BLACK'S TURN");
     //currentColor = ".black_checker";
     return false;
   }
   if(!redTurn){
+    
     redTurn = true;
+    $("#whos_turn").text("RED'S TURN");
     //currentColor = ".red_checker";
     return true;
   }
