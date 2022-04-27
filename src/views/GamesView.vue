@@ -15,7 +15,6 @@
                 Testing
             </GameElement>
         </div>
-        <div>This is just temprary text for testing</div>
     </BaseBackground>
 
     <!-- Page Footer -->

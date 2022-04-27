@@ -306,6 +306,8 @@ function addGlow(x,y,newX,newY,isJump){
   var checker = $(oldCell.children()[0]);
   var checkerColor = checker.attr("class").split("_")[0];
 
+  var kingColor = checker.attr("class").split("_")[1];
+
   //if a jump move is being made
   if(isJump){
     //coordinates of cell that is being jumped over (average of new and old cell coordinates)
@@ -321,7 +323,7 @@ function addGlow(x,y,newX,newY,isJump){
       if checker being deleted is a different color
       (makes sure a jump cannot take place with same colored checkers)
     */
-    if(deleteColor != checkerColor){
+    if(deleteColor != checkerColor && deleteColor != kingColor){
       newCell.attr("class","glow");
       return true;
     }
@@ -356,7 +358,7 @@ function makeMove(moves,checkerValue,currCoords,isJump){
     //new cell can be clickable
     newCell.click(function(){
       //if new cell is empty and the checker being used is the same as its pieceValue (to double check)
-      if($(this).children().length == 0 && boardArray[x][y] == checkerValue && boardArray[newX][newY] == -1){
+      if($(this).children().length == 0 && boardArray[x][y] == checkerValue){
         changeCells($(this),checkerValue,x,y,isJump);
         return true;
       }
@@ -384,6 +386,8 @@ function changeCells(newCell,pieceValue,x,y,isJump){
   var checker = $(oldCell.children()[0]);
   var checkerColor = checker.attr("class").split("_")[0];
 
+  var kingColor = checker.attr("class").split("_")[1];
+
   //a move can be made
   var canMove = true;
   
@@ -399,7 +403,7 @@ function changeCells(newCell,pieceValue,x,y,isJump){
     var deleteColor = deleteChecker.attr("class").split("_")[0];
 
     //remove checker that is jumped over if it is not the same color as current checker
-    if(deleteColor != checkerColor){
+    if(deleteColor != checkerColor && deleteColor != kingColor){
       deleteChecker.remove();
       boardArray[deleteCoords[0]][deleteCoords[1]] = -1;
     }
