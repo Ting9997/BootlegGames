@@ -4,7 +4,9 @@
       PLAY
     </button>
   </div>
-  
+  <button id="replay_button" class="hidden">
+    REPLAY
+  </button>
   <table id="checkersGrid" class="hidden">
     <tr>
       <td>
@@ -63,6 +65,12 @@ export default {
           //show game
           $("#checkersGrid").removeAttr("class");
         });
+
+        //When RePlay Button pressed
+        $("#replay_button").click(function(){
+          location.reload();
+        });
+
         let board = $('#checkerBoard');
         createBoard(board); 
         assignCheckers();  
@@ -72,6 +80,10 @@ export default {
 
         if(!gameEnd){
           $("span").click(showMoves);
+        }
+        else{
+          //display replay button
+          $("#replay_button").removeAttr("class");
         }
       });
     }
@@ -658,6 +670,12 @@ function make2DArray(size){
   width: 200px; 
   height: auto;
   margin-top: 190px; 
+  background-color: rgb(154, 0, 0);
+  color: var(--cus-white);
+}
+#replay_button{
+  width: 200px; 
+  height: auto;
   background-color: rgb(154, 0, 0);
   color: var(--cus-white);
 }

@@ -5,6 +5,7 @@ import ContactsView from '../views/ContactsView.vue';
 import CheckersView from '../views/CheckersView.vue';
 import SnakeView from '../views/SnakeView.vue';
 import BallDownView from '../views/BallDownView.vue';
+import Connect4 from '../views/ConnectFourView.vue';
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
   path: '/games/balldown',
   name: 'balldown',
   component: BallDownView
+  },
+  {
+    path: '/games/connect4',
+    name: 'connect4',
+    component: Connect4
   }
   // {
   //   path: '/about',

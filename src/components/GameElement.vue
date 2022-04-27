@@ -1,5 +1,5 @@
 <template>
-    <div id="GameList">
+    <div class="gameList">
         <div class="game-list-item">
             <a class="nav-link" href="/games/checkers">
                 <p>Checkers Game</p> 
@@ -17,6 +17,14 @@
             <a class="nav-link" href="/games/balldown">
                 <p>BallDown</p> 
                 <img id="checkers_preview" src="../assets/balldown_preview.png" alt="BallDown Preview">
+            </a>
+        </div>
+    </div>
+    <div class="gameList">
+        <div class="game-list-item">
+            <a class="nav-link" href="/games/connect4">
+                <p>Connect 4</p> 
+                <img id="checkers_preview" src="../assets/connect4_preview.jpg" alt="Connect Four">
             </a>
         </div>
     </div>
@@ -39,7 +47,7 @@ export default {
 .td{
     background-color: var(--cus-trans-black);
 }
-#GameList{
+.gameList{
     display: flex;
     justify-content: space-evenly;
     padding-top: 25px;
