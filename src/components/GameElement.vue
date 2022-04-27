@@ -13,7 +13,7 @@
             <div class="game-list-item">
                 <a class="nav-link" href="/games/snake">
                     <p>Snake Game</p> 
-                   <img id="checkers_preview" src="../assets/snake_preview.png" alt="Checkers Preview">
+                   <img id="checkers_preview" src="../assets/snake_preview.png" alt="Snake Preview">
                 </a>
             </div>
         </dt>
@@ -21,7 +21,7 @@
             <div class="game-list-item">
                 <a class="nav-link" href="/games/balldown">
                     <p>BallDown</p> 
-                   <img id="checkers_preview" src="../assets/snake_preview.png" alt="Checkers Preview">
+                   <img id="checkers_preview" src="../assets/balldown_preview.png" alt="BallDown Preview">
                 </a>
             </div>
         </dt>
