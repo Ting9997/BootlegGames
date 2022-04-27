@@ -12,19 +12,35 @@
             <dt href="/contacts/andy_wang">
                 Andy Wang
             </dt>
-            <dd>[empty]</dd>
+            <dd>
+                <a rel="stylesheet" href="https://www.linkedin.com/in/andy-wang-79a88b1a4/">
+                    LinkedIn Account
+                </a>
+            </dd>
             <dt href="/contacts/ting_wu">
                 Ting Wu
             </dt>
-            <dd>[empty]</dd>
+            <dd>
+                <a rel="stylesheet" href="https://www.linkedin.com/in/ting-jian-wu-979b93198/">
+                    LinkedIn Account
+                </a>
+            </dd>
             <dt href="/contacts/marco_ma">
                 Marco Ma
             </dt>
-            <dd>[empty]</dd>
+            <dd>
+                <a rel="stylesheet" href="https://www.linkedin.com/in/mamarco/">
+                    LinkedIn Account
+                </a>
+            </dd>
             <dt href="/contacts/owais_najmi">
                 Owais Najmi
             </dt>
-            <dd>[empty]</dd>
+            <dd>
+                <a rel="stylesheet" href="https://www.linkedin.com/in/owais-najmi-507810200/">
+                    LinkedIn Account
+                </a>
+            </dd>
         </dl>
         <p id="printout"></p>
     </div>

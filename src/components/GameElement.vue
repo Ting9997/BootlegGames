@@ -3,20 +3,20 @@
         <div class="game-list-item">
             <a class="nav-link" href="/games/checkers">
                 <p>Checkers Game</p> 
-                <img id="checkers_preview" src="../assets/checkers_preview.png" alt="Checkers Preview">
+                <!-- <img id="checkers_preview" src="../assets/checkers_preview.png" alt="Checkers Preview"> -->
             </a>
             
         </div>
         <div class="game-list-item">
             <a class="nav-link" href="/games/snake">
                 <p>Snake Game</p> 
-                <img id="checkers_preview" src="../assets/snake_preview.png" alt="Snake Preview">
+                <!-- <img id="checkers_preview" src="../assets/snake_preview.png" alt="Snake Preview"> -->
             </a>
         </div>
         <div class="game-list-item">
             <a class="nav-link" href="/games/balldown">
                 <p>BallDown</p> 
-                <img id="checkers_preview" src="../assets/balldown_preview.png" alt="BallDown Preview">
+                <!-- <img id="checkers_preview" src="../assets/balldown_preview.png" alt="BallDown Preview"> -->
             </a>
         </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="game-list-item">
             <a class="nav-link" href="/games/connect4">
                 <p>Connect 4</p> 
-                <img id="checkers_preview" src="../assets/connect4_preview.jpg" alt="Connect Four">
+                <!-- <img id="checkers_preview" src="../assets/connect4_preview.jpg" alt="Connect Four"> -->
             </a>
         </div>
     </div>
