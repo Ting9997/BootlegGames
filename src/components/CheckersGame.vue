@@ -47,17 +47,18 @@ import * as d3 from "d3";
 export default {
     name: "CheckersGame",
     mounted(){
-      let board = $('#checkerBoard');
-      createBoard(board); 
-      assignCheckers();  
+      $(document).ready(function(){
+        let board = $('#checkerBoard');
+        createBoard(board); 
+        assignCheckers();  
 
-      //Initializing whos_turn
-      displayTurn("RED");
+        //Initializing whos_turn
+        displayTurn("RED");
 
-      if(!gameEnd){
-        $("span").click(showMoves);
-      }
-      
+        if(!gameEnd){
+          $("span").click(showMoves);
+        }
+      });
     }
 }
 
@@ -306,7 +307,12 @@ function addGlow(x,y,newX,newY,isJump){
   var checker = $(oldCell.children()[0]);
   var checkerColor = checker.attr("class").split("_")[0];
 
+  //if the checker is a king, it gets the king's color
   var kingColor = checker.attr("class").split("_")[1];
+  if(kingColor != "checker"){
+    //to ensure you can't jump over your own king
+    checkerColor = kingColor;
+  }
 
   //if a jump move is being made
   if(isJump){
@@ -318,12 +324,21 @@ function addGlow(x,y,newX,newY,isJump){
 
     //color of checker being deleted
     var deleteColor = deleteChecker.attr("class").split("_")[0];
+    var deleteKingColor = deleteChecker.attr("class").split("_")[1];
+
+    /*
+      updates the color of the checker being deleted if it is a king
+      (makes sure you cannot jump over your own king)
+    */
+    if(deleteKingColor != "checker"){
+      deleteColor = deleteKingColor;
+    }
 
     /*
       if checker being deleted is a different color
       (makes sure a jump cannot take place with same colored checkers)
     */
-    if(deleteColor != checkerColor && deleteColor != kingColor){
+    if(deleteColor != checkerColor){
       newCell.attr("class","glow");
       return true;
     }
@@ -386,8 +401,12 @@ function changeCells(newCell,pieceValue,x,y,isJump){
   var checker = $(oldCell.children()[0]);
   var checkerColor = checker.attr("class").split("_")[0];
 
+  //if the checker is a king, it gets the king's color
   var kingColor = checker.attr("class").split("_")[1];
-
+  if(kingColor == "checker"){
+    //to ensure you can't jump over your own king
+    kingColor = checkerColor;
+  }
   //a move can be made
   var canMove = true;
   
@@ -395,7 +414,7 @@ function changeCells(newCell,pieceValue,x,y,isJump){
   if(isJump){
     //coordinates of cell that is being jumped over (average of new and old cell coordinates)
     var deleteCoords = [(newX + x) /2,(newY + y) / 2];
-
+    
     //checker that is being deleted
     var deleteChecker = $($("#cell"+deleteCoords[0]+deleteCoords[1]).children()[0]);
 
@@ -431,7 +450,7 @@ function changeCells(newCell,pieceValue,x,y,isJump){
   }
 
   //if new cell is successfully occupied
-  if(newCell.children().length > 0){
+  if(newCell.children().length > 0 && !gameEnd){
     changeTurn();
   }  
 }
