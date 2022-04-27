@@ -8,7 +8,7 @@
         <div class="site-description">The Hub of Mini Games and unlimited fun!</div>
         <!-- Featured -->
         <div class="featured">
-            <a class="nav-link" href="/">
+            <a id="random_game" class="nav-link" href="">
                 <div class="image_container"></div>
                 <p class="game_title"></p>
             </a>
@@ -112,7 +112,7 @@ export default {
         imageContainer.appendChild(imageElement);
         let gameTitle = document.getElementsByClassName('game_title')[0];
         gameTitle.innerHTML = generatedText;
-        $(".nav-link").attr("href",generatedLink);
+        $("#random_game").attr("href",generatedLink);
     }
 }
 </script>
