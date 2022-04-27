@@ -6,14 +6,14 @@
         <!-- Title -->
         <div class="title">Bootleg Games</div>
         <div class="site-description">The Hub of Mini Games and unlimited fun!</div>
-
         <!-- Featured -->
         <div class="featured">
-            <a class="nav-link" href="/games/balldown">
+            <a class="nav-link" href="/">
                 <div class="image_container"></div>
                 <p class="game_title"></p>
             </a>
         </div>
+        
     </BaseBackground>
 
     <!-- Bibliography -->
@@ -70,24 +70,8 @@ import snakePreview from "@/assets/snake_preview.png"; // Andy's Game
 import connect4Preview from "@/assets/connect4_preview.jpg"; // Ting's Game
 import checkersPreview from "@/assets/checkers_preview.png"; // Rajiv's Game
 import balldownPreview from "@/assets/balldown_preview.png"; // Owais's Game
-var gameTabs = [
-    "/views/SnakeView.vue", // Andy's Game
-    "/views/ConnectFourView.vue", // Ting's Game
-    "/views/CheckersView.vue", // Rajiv's Game
-    "/views/BallDownView.vue", // Owais's Game
-]
-var gameIcons = [
-    snakePreview, // Andy's Game
-    connect4Preview, // Ting's Game
-    checkersPreview, // Rajiv's Game
-    balldownPreview, // Owais's Game
-]
-var gameText = [
-    "Snake", // Andy's Game
-    "Connect 4", // Ting's Game
-    "Checkers", // Rajiv's Game
-    "Balldown", // Owais's Game
-]
+import $ from 'jquery';
+
 
 export default {
     name: "DropZoneView",
@@ -96,6 +80,24 @@ export default {
         BaseBackground
     },
     mounted(){        
+        var gameTabs = [
+            "/games/snake", // Andy's Game
+            "/games/connect4", // Ting's Game
+            "/games/checkers", // Rajiv's Game
+            "/games/balldown" // Owais's Game
+        ]
+        var gameIcons = [
+            snakePreview, // Andy's Game
+            connect4Preview, // Ting's Game
+            checkersPreview, // Rajiv's Game
+            balldownPreview // Owais's Game
+        ]
+        var gameText = [
+            "Snake", // Andy's Game
+            "Connect 4", // Ting's Game
+            "Checkers", // Rajiv's Game
+            "Balldown" // Owais's Game
+        ]
         // generate game link info
         let ranNum = Math.floor((Math.random() * gameTabs.length));
         let generatedLink = gameTabs[ranNum];
@@ -110,8 +112,7 @@ export default {
         imageContainer.appendChild(imageElement);
         let gameTitle = document.getElementsByClassName('game_title')[0];
         gameTitle.innerHTML = generatedText;
-        let link = document.getElementsByClassName('nav-link')[0];
-        link.herf = generatedLink;
+        $(".nav-link").attr("href",generatedLink);
     }
 }
 </script>
