@@ -1,6 +1,7 @@
 <template>
     <div id='game_body'>
         <button id='begin_game' v-on:click="startGame">Begin Game/Reset Game</button>
+        <div id='score_display'/>
         <div class='snake_board'>
             <table id='board_grid'/>
         </div>
@@ -21,7 +22,7 @@ import snakeBody from '@/assets/SnakeBody.png';
 const boardSize = 13;
 const boardCellSize = 50;
 const nullPos = "-200px";
-const animationTime = 300;// miliseconds it takes for body part to move from one cell to another
+const animationTime = 200;// miliseconds it takes for body part to move from one cell to another
 var boardGrid, board;
 var moveDirection, animtionMoveDirection, gameIsRunning, preTimestamp, moveDirectionList = [];
 var apple, appleOnBoard = {x: -1, y: -1};
@@ -53,6 +54,18 @@ function updateApplePos(x, y){
     appleOnBoard['y'] = y;
     // update grid board
     boardGrid[y][x] = -2;
+}
+function updateScoreBoard(){
+    let score = bodyPieces.length-2;
+    if (localStorage.SnakeHighScore){
+        if (localStorage.SnakeHighScore < score){
+            localStorage.SnakeHighScore = score
+        }
+    }else{
+        localStorage.SnakeHighScore = score
+    }
+    let scoreDispaly = document.getElementById('score_display');
+    scoreDispaly.innerHTML = "High Score: " + localStorage.SnakeHighScore + "| Score: " + score;
 }
 function updateNextMovment(){
     if (moveDirectionList.length > 0){
@@ -143,6 +156,10 @@ function updatePlayerBody(timestamp){
                     if (found) break;
                 }
 
+                // generate new body piece
+                let lastPeice = bodyPieces[bodyPieces.length-1];
+                bodyPieces.push({x: lastPeice['x'], y: lastPeice['y'], piece: createPlayerPiece(lastPeice['x'], lastPeice['y'], snakeBody)});
+
                 // generate new apple
                 let placed = false;
                 while(!placed){
@@ -150,13 +167,10 @@ function updatePlayerBody(timestamp){
                     let ranY = Math.floor((Math.random() * boardSize));
                     if (boardGrid[ranY][ranX] == -1){
                         updateApplePos(ranX, ranY);
+                        updateScoreBoard();
                         placed = true;
                     }
                 }
-
-                // generate new body piece
-                let lastPeice = bodyPieces[bodyPieces.length-1];
-                bodyPieces.push({x: lastPeice['x'], y: lastPeice['y'], piece: createPlayerPiece(lastPeice['x'], lastPeice['y'], snakeBody)});
             }
         }
         let prevPiece;
@@ -234,7 +248,6 @@ export default {
                 needsReset = true;
             }else{ //connect inputs only on start game
                 document.addEventListener('keypress', function(event){
-                    console.log('Is input');
                     if (event.code == 'KeyA'){
                         addNextMovement(-1, 0);
                     }else if(event.code == 'KeyD'){
@@ -256,6 +269,7 @@ export default {
             bodyPieces.push({x:3, y:6, piece:createPlayerPiece(3, 6, snakeHead)});
             bodyPieces[0]['piece'].style.transform = `rotate(270deg)`;
             bodyPieces.push({x:2, y:6, piece:createPlayerPiece(2, 6, snakeBody)});
+            updateScoreBoard();
 
             //connect animtion frames and movment
             gameIsRunning = true;
@@ -289,6 +303,7 @@ export default {
     width: 50px * 13;
     color: var(--cus-white);
     background-color: var(--cus-black);
+    font-family: var(--cus-title-font);
 }
 #game_body{
     display: flex;
@@ -309,5 +324,14 @@ export default {
 #board_grid tr:nth-child(even) td:nth-child(odd), #board_grid tr:nth-child(odd) td:nth-child(even)
 {
     background-color: var(--cus-trans-blue);
+}
+
+#score_display{
+    width: 50px * 13;
+    height: 30px;
+    position: relative;
+    background-color: var(--cus-black);
+    font-family: var(--cus-title-font);
+    color: var(--cus-white);
 }
 </style>
