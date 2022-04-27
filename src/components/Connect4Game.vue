@@ -1,8 +1,8 @@
 <template>
-    <p id="yellowTurn" class="hidden">Yellow Turn</p>
-    <p id="redTurn" class="hidden">Red Turn</p>
+    <p id="yellowTurn" class="hidden">Yellow's Turn</p>
+    <p id="redTurn" class="hidden">Red's Turn</p>
     <div id="grid"></div>
-    <div class="game_page_footer">Developed By Ting Jian Wu</div>
+    <div class="game_page_footer">Developed By: Ting Jian Wu</div>
 </template>
 
 <script>
