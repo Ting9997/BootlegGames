@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas ref="game" width="420" height="640" 
+        <canvas ref="game" width="480" height="640" 
             style="border: 1px solid black;">
         </canvas>
         <span>{{timeLeft}}</span>
@@ -31,7 +31,7 @@
                 score: 0,
                 ballYSpd: 0,
                 ballXSpd: 0,
-                platformSpd: -0.1,
+                platformSpd: -1,
                 context: {},
                 ball: {
                     x: 10,
@@ -148,21 +148,17 @@
             onKeyDown(e){
                 switch (e.which) {
                     case 37: //left
-                        if (this.ballXSpd > -5) {
-                            this.ballXSpd -= 0.5;
-                        }
+                        this.ballXSpd = -3
                         break;
                     case 39: //right
-                        if (this.ballXSpd < 5) {
-                        this.ballXSpd += 0.5;
-                        }
+                        this.ballXSpd = 3;
                         break;
                     default:
                         break;
                 }
             },
             onKeyUp(){
-                // this.ballXSpd = 0;
+                this.ballXSpd = 0;
                 // if (this.ballSpd > 0) {
                 //     this.ballSpd-=1;
                 // }else if (this.ballSpd<0) {
@@ -207,7 +203,7 @@
 
                 this.updateGame();
 
-                // this.platformSpd -= 0.0001;
+                this.platformSpd -= 0.0001;
                 this.id = requestAnimationFrame(this.draw);
                 if (this.ball.y <= 10) {
                     this.cancel_draw();
