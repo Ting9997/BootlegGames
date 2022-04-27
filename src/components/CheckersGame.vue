@@ -77,7 +77,6 @@ let boardArray = make2DArray(checkerBoardSize);
     empty = -1
     black = 0
     red = 1
-    king = 2
 */
 
 //-------MAIN CHECKERS GAME FUNCTIONS-------
