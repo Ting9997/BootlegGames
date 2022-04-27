@@ -17,7 +17,7 @@
             <td></td>
         </tr>
         <tr>
-            <td></td>
+            <td><a class="nav-link" href="/ballgame">Ball Game</a></td>
             <td></td>
         </tr>
     </table>
