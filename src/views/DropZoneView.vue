@@ -57,6 +57,9 @@
             </div>
         </div>
     </div>
+    
+    <!-- Page Footer -->
+    <div class="game_page_footer">© 2022 Bootleg Games</div>
 </template>
 
 <!-- _______________________________________________________________ -->
