@@ -10,8 +10,7 @@
         </div>
 
         <!-- Footer -->
-    <div class='game_page_footer'>Developed by Owais Najmi</div>
-    </base-background>
+    
 
     <div v-if="gamePage == 0" class="startPage">
         <p class="gametitle">BALLDOWN</p>
@@ -28,6 +27,8 @@
         <div @click="gamePage = 1" class="button">PLAY AGAIN</div>
         <div @click="gamePage = 0" class="button">MAIN MENU</div>
     </div>
+    <div class='game_page_footer'>Developed by Owais Najmi</div>
+    </base-background>
 
 </template>
 

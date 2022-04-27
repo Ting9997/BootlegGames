@@ -55,10 +55,18 @@ export default {
     width: 400px;
     margin: auto;
     font-size: 50px;
+    box-shadow: 10px 10px black;
+    background-color: var(--cus-black);
 }
 .game-list-item:hover{
     //background: hsl(0, 0, 90%);
-    opacity: 0.7;
+    opacity: 0.9;
     background-color: rgb(81, 81, 81);
+}
+p{
+    font: bold;
+    text-shadow: 2px 2px #020202;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
 </style>

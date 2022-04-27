@@ -5,7 +5,7 @@
     <BaseBackground>
         <!-- Title -->
         <div class="title">Bootleg Games</div>
-        <div class="site-description">Welcome to the hub where mini games are normal and fun is limited to what we offer!</div>
+        <div class="site-description">The Hub of Mini Games and unlimited fun!</div>
 
         <!-- Featured -->
         <div class="featured">
@@ -20,7 +20,7 @@
     <div class="bios-container-outter">
         <p class="bio-container-title">Developers</p>
         <div class="bios-container-inner">
-            <div class="bios">
+            <div class="bios" id="rajiv">
                 <a href="/contacts/rajiv_williams">
                     <svg class="bio-text-container">
                         <text class="bio-text" x="15" y="170">Rajiv Williams</text>
@@ -90,12 +90,18 @@ export default {
 
 .title{
     font-size: 6rem;
+    font: bold;
     height: 10rem;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+    text-shadow: 2px 2px #020202;
 }
 
 .site-description{
     font-size: 1.5rem;
     height: 7rem;
+    text-align: center;
+    text-shadow: 2px 2px #020202;
 }
 
 .featured{
@@ -174,6 +180,12 @@ export default {
 .bio-text{
     font-family: var(--cus-title-font);
     font-size: 25px;
+  
+}
+#rajiv{
+    background-image: url(../assets/rajiv_biophoto.jpg);
+    background-size: 230px;
+    background-position: center;
 }
 
 </style>

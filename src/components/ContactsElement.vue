@@ -4,23 +4,27 @@
             <dt href="/contacts/rajiv_williams">
                 Rajiv Williams
             </dt>
-            <dd>I enjoy blah blah and blah</dd>
+            <dd>
+                <a rel="stylesheet" href="https://www.linkedin.com/in/rajiv-williams-758216211/">
+                    LinkedIn Account
+                </a>
+            </dd>
             <dt href="/contacts/andy_wang">
                 Andy Wang
             </dt>
-            <dd>I enjoy blah blah and blah</dd>
+            <dd>[empty]</dd>
             <dt href="/contacts/ting_wu">
                 Ting Wu
             </dt>
-            <dd>I enjoy blah blah and blah</dd>
+            <dd>[empty]</dd>
             <dt href="/contacts/marco_ma">
                 Marco Ma
             </dt>
-            <dd>I enjoy blah blah and blah</dd>
+            <dd>[empty]</dd>
             <dt href="/contacts/owais_najmi">
                 Owais Najmi
             </dt>
-            <dd>I enjoy blah blah and blah</dd>
+            <dd>[empty]</dd>
         </dl>
         <p id="printout"></p>
     </div>
@@ -82,11 +86,25 @@ $(document).ready(function(){
     background-color: var(--cus-trans-black);
 }
 #contactList{
-    // display: flex;
-    // justify-content: space-evenly;
-    // padding-top: 25px;
-    // padding-bottom: 25px;
-    margin: auto;
+    margin: auto;  
+}
+dt{
+    width: 100%;
+    height: 20%;
+    font-family: var(--cus-title-font);
+    font-size: 3rem;
+    color: var(--cus-white);
+    text-align: center;
+    text-shadow: 2px 2px #020202;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+dd{
+    font-family: var(--cus-title-font);
+    color: var(--cus-white);
+    font-size: 2rem;
+    -webkit-text-stroke-width: 0.1px;
+    -webkit-text-stroke-color: black;
 }
 
 </style>
