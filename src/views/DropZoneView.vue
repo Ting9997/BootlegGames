@@ -17,41 +17,44 @@
     </BaseBackground>
 
     <!-- Bibliography -->
-    <div class="bios-container">
-        <div class="bios">
-            <a href="/contacts/rajiv_williams">
-                <svg class="bio-text-container">
-                    <text class="bio-text" x="15" y="170">Rajiv Williams</text>
-                </svg>
-            </a>
-        </div>
-        <div class="bios">
-            <a href="/contacts/andy_wang">
-                <svg class="bio-text-container">
-                    <text class="bio-text" x="30" y="170">Andy Wang</text>
-                </svg>
-            </a>
-        </div>
-        <div class="bios">
-            <a href="/contacts/ting wu">
-                <svg class="bio-text-container">
-                    <text class="bio-text" x="45" y="170">Ting Wu</text>
-                </svg>
-            </a>
-        </div>
-        <div class="bios">
-            <a href="/contacts/marco_ma">
-                <svg class="bio-text-container">
-                    <text class="bio-text" x="35" y="170">Marco Ma</text>
-                </svg>
-            </a>
-        </div>
-        <div class="bios">
-            <a href="/contacts/owais_najmi">
-                <svg class="bio-text-container">
-                    <text class="bio-text" x="23" y="170">Owais Najmi</text>
-                </svg>
-            </a>
+    <div class="bios-container-outter">
+        <p class="bio-container-title">Developers</p>
+        <div class="bios-container-inner">
+            <div class="bios">
+                <a href="/contacts/rajiv_williams">
+                    <svg class="bio-text-container">
+                        <text class="bio-text" x="15" y="170">Rajiv Williams</text>
+                    </svg>
+                </a>
+            </div>
+            <div class="bios">
+                <a href="/contacts/andy_wang">
+                    <svg class="bio-text-container">
+                        <text class="bio-text" x="30" y="170">Andy Wang</text>
+                    </svg>
+                </a>
+            </div>
+            <div class="bios">
+                <a href="/contacts/ting wu">
+                    <svg class="bio-text-container">
+                        <text class="bio-text" x="45" y="170">Ting Wu</text>
+                    </svg>
+                </a>
+            </div>
+            <div class="bios">
+                <a href="/contacts/marco_ma">
+                    <svg class="bio-text-container">
+                        <text class="bio-text" x="35" y="170">Marco Ma</text>
+                    </svg>
+                </a>
+            </div>
+            <div class="bios">
+                <a href="/contacts/owais_najmi">
+                    <svg class="bio-text-container">
+                        <text class="bio-text" x="23" y="170">Owais Najmi</text>
+                    </svg>
+                </a>
+            </div>
         </div>
     </div>
 </template>
@@ -130,7 +133,18 @@ export default {
 }
 
 /* ================= Bibliography ================= */
-.bios-container{
+.bio-container-title{
+    width: 100%;
+    height: auto;
+    font-family: var(--cus-title-font);
+    font-size: 2rem;
+    color: var(--cus-white);
+    text-align: center;
+}
+.bios-container-outter{
+    background-color: var(--cus-black);
+}
+.bios-container-inner{
     display: flex;
     justify-content: space-evenly;
     padding-top: 25px;
