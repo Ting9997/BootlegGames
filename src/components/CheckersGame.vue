@@ -1,5 +1,11 @@
 <template>
-  <table class="checkersGrid">
+  <div id="start_screen">
+    <button id="play_button">
+      PLAY
+    </button>
+  </div>
+  
+  <table id="checkersGrid" class="hidden">
     <tr>
       <td>
         <table id="howToPlay">
@@ -48,6 +54,15 @@ export default {
     name: "CheckersGame",
     mounted(){
       $(document).ready(function(){
+
+        //When Play Button pressed
+        $("#play_button").click(function(){
+          //hide start screen
+          $("#start_screen").attr("class","hidden")
+
+          //show game
+          $("#checkersGrid").removeAttr("class");
+        });
         let board = $('#checkerBoard');
         createBoard(board); 
         assignCheckers();  
@@ -628,13 +643,30 @@ function make2DArray(size){
 .td{
     background-color: var(--cus-trans-black);
 }
+
+
+#start_screen{
+  background-image: url(../assets/checkerboard.png);
+  background-size: 400px;
+  width: 400px; 
+  height: 400px; 
+  margin-left: auto; 
+  margin-right: auto;
+  box-shadow: 10px 10px var(--cus-trans-black);
+}
+#play_button{
+  width: 200px; 
+  height: auto;
+  margin-top: 190px; 
+  background-color: rgb(154, 0, 0);
+  color: var(--cus-white);
+}
 #checkerBoard {
   margin-left:auto;
   margin-right:auto;
   border: 1px solid black;
   border-collapse: collapse;
 }
-
 #checkerBoard tr {
   border: 1px solid black;
   border-collapse: collapse;
@@ -662,13 +694,6 @@ function make2DArray(size){
   border-right: 3px solid black;
 }
 
-//Dark Colored Squares
-// #checkerBoard tr:nth-child(2n) td:not(td:nth-child(2n)){
-//     background-color: #0b0b0b;
-// }
-// #checkerBoard tr:not(tr:nth-child(2n)) td:nth-child(2n){
-//     background-color: #0b0b0b;
-// }
 .blackSquare{
   background-color: #0b0b0b;
 }
@@ -726,7 +751,7 @@ function make2DArray(size){
 }
 
 //Checker Grid Items
-.checkersGrid{
+#checkersGrid{
   margin-left:auto;
   margin-right:auto;
   display: -ms-inline-grid;
