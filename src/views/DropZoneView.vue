@@ -18,11 +18,41 @@
 
     <!-- Bibliography -->
     <div class="bios-container">
-        <div class="bios">[Rajiv Williams]</div>
-        <div class="bios">Bios 2</div>
-        <div class="bios">Bios 3</div>
-        <div class="bios">Bios 4</div>
-        <div class="bios">Bios 5</div>
+        <div class="bios">
+            <a href="/contacts/rajiv_williams">
+                <svg class="bio-text-container">
+                    <text class="bio-text" x="15" y="170">Rajiv Williams</text>
+                </svg>
+            </a>
+        </div>
+        <div class="bios">
+            <a href="/contacts/andy_wang">
+                <svg class="bio-text-container">
+                    <text class="bio-text" x="30" y="170">Andy Wang</text>
+                </svg>
+            </a>
+        </div>
+        <div class="bios">
+            <a href="/contacts/ting wu">
+                <svg class="bio-text-container">
+                    <text class="bio-text" x="45" y="170">Ting Wu</text>
+                </svg>
+            </a>
+        </div>
+        <div class="bios">
+            <a href="/contacts/marco_ma">
+                <svg class="bio-text-container">
+                    <text class="bio-text" x="35" y="170">Marco Ma</text>
+                </svg>
+            </a>
+        </div>
+        <div class="bios">
+            <a href="/contacts/owais_najmi">
+                <svg class="bio-text-container">
+                    <text class="bio-text" x="23" y="170">Owais Najmi</text>
+                </svg>
+            </a>
+        </div>
     </div>
 </template>
 
@@ -114,6 +144,22 @@ export default {
     width: 15%;
     background-color: var(--cus-white);
     text-align: center;
-    opacity: 0.5;
+    opacity: 0.7;
 }
+
+.bios:hover{
+    opacity: 1.0;
+}
+.bio-text-container{
+    height: 327px;
+    width: 100%;
+}
+.bio-text-container:hover{
+    opacity: 0.3;
+}
+.bio-text{
+    font-family: var(--cus-title-font);
+    font-size: 25px;
+}
+
 </style>

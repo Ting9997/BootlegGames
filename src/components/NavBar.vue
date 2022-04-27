@@ -14,10 +14,10 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Games">Games</a>
+                    <a class="nav-link" href="/games">Games</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Contacts</a>
+                    <a class="nav-link" href="/contacts">Contacts</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/">About</a>
