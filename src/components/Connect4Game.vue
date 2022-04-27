@@ -1,5 +1,8 @@
 <template>
+    <p id="yellowTurn" class="hidden">Yellow Turn</p>
+    <p id="redTurn" class="hidden">Red Turn</p>
     <div id="grid"></div>
+    <div class="game_page_footer">Developed By Ting Jian Wu</div>
 </template>
 
 <script>
@@ -8,7 +11,16 @@ import $ from 'jquery'
 export default {
     name: "Connect4Game",
     mounted() {
-        var turn = 'redCol';
+        var turn;
+
+        // Random color goes first
+        if (Math.floor(Math.random() * 2) == 0){
+            turn = 'redCol';
+            $("#yellowTurn").removeClass("hidden");
+        }else{
+            turn = 'yellowCol';
+            $("#redTurn").removeClass("hidden");
+        }
 
         // Construct the connect4 grid
         for (let row = 0; row < 6; row++){
@@ -71,32 +83,25 @@ export default {
         // Determine which column number the user clicks
         $('.emptyCol').on('click', function(){
             const colNum = $(this).attr('colnumber')
-
-            if (turn === 'redCol'){
-                turn = 'yellowCol';
-            }
-            else if (turn == 'yellowCol'){
-                turn = 'redCol';
-            }
-
             const colEntry = getColumn(colNum);
 
-            if (colEntry === null){
-                // If the column is full revert the player turn change
+            if (colEntry != null){
                 if (turn === 'redCol'){
                     turn = 'yellowCol';
+                    $("#yellowTurn").addClass("hidden");
+                    $("#redTurn").removeClass("hidden");
                 }
                 else if (turn == 'yellowCol'){
                     turn = 'redCol';
+                    $("#redTurn").addClass("hidden");
+                    $("#yellowTurn").removeClass("hidden");
                 }
-            }
-            else{
                 colEntry.addClass(turn);
-                
                 if (checkVertical(colNum) || checkHorizontal(colNum) || checkDiagonal()){
                     alert("Game Over!");
                 }
             }
+
 
         })
 
@@ -341,6 +346,13 @@ export default {
             return false;
 
         }
+    },
+    data(){
+        return {
+            playerTurn: '',
+            displayRed: false,
+            displayYellow: false
+        }
     }
 }
 </script>
@@ -349,9 +361,14 @@ export default {
 
 /* Style the connect4 grid */
 #grid {
-    margin-top: 210px;
     background: blue;
     display: inline-block;
+    margin-bottom: 98px;
+}
+
+#yellowTurn, #redTurn{
+    font-size: 50px;
+    color: white;
 }
 
 .emptyCol {
@@ -368,6 +385,10 @@ export default {
 
 .yellowCol{
     background: yellow;
+}
+
+.hidden{
+    display: none;
 }
 
 </style>
