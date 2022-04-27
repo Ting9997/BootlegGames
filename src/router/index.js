@@ -3,6 +3,8 @@ import DropZoneView from '../views/DropZoneView.vue';
 import GamesView from '../views/GamesView.vue';
 import CheckersView from '../views/CheckersView.vue';
 import SnakeView from '../views/SnakeView.vue';
+import BallDownView from '../views/BallDownView.vue';
+
 const routes = [
   {
     path: '/',
@@ -23,7 +25,12 @@ const routes = [
     path: '/games/checkers',
     name: 'checkers',
     component: CheckersView
-  }
+  },
+  {
+  path: '/games/balldown',
+  name: 'balldown',
+  component: BallDownView
+}
   // {
   //   path: '/about',
   //   name: 'about',

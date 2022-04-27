@@ -17,6 +17,14 @@
                 </a>
             </div>
         </dt>
+        <dt>
+            <div class="game-list-item">
+                <a class="nav-link" href="/games/balldown">
+                    <p>BallDown</p> 
+                   <img id="checkers_preview" src="../assets/snake_preview.png" alt="Checkers Preview">
+                </a>
+            </div>
+        </dt>
     </dl>
 </template>
 
