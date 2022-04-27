@@ -9,10 +9,10 @@
 
         <!-- Featured -->
         <div class="featured">
-            <div>
-                <div class="image_container"><img alt="Place Holder" src="../assets/place_holder.png"></div>
-                <p class="game_title">This is where game name is</p>
-            </div>
+            <a class="nav-link" href="/games/balldown">
+                <div class="image_container"></div>
+                <p class="game_title"></p>
+            </a>
         </div>
     </BaseBackground>
 
@@ -66,6 +66,28 @@
 <script>
 import NavBar from '@/components/NavBar.vue';
 import BaseBackground from '@/components/BaseBackground.vue';
+import snakePreview from "@/assets/snake_preview.png"; // Andy's Game
+import connect4Preview from "@/assets/connect4_preview.jpg"; // Ting's Game
+import checkersPreview from "@/assets/checkers_preview.png"; // Rajiv's Game
+import balldownPreview from "@/assets/balldown_preview.png"; // Owais's Game
+var gameTabs = [
+    "/views/SnakeView.vue", // Andy's Game
+    "/views/ConnectFourView.vue", // Ting's Game
+    "/views/CheckersView.vue", // Rajiv's Game
+    "/views/BallDownView.vue", // Owais's Game
+]
+var gameIcons = [
+    snakePreview, // Andy's Game
+    connect4Preview, // Ting's Game
+    checkersPreview, // Rajiv's Game
+    balldownPreview, // Owais's Game
+]
+var gameText = [
+    "Snake", // Andy's Game
+    "Connect 4", // Ting's Game
+    "Checkers", // Rajiv's Game
+    "Balldown", // Owais's Game
+]
 
 export default {
     name: "DropZoneView",
@@ -73,6 +95,24 @@ export default {
         NavBar,
         BaseBackground
     },
+    mounted(){        
+        // generate game link info
+        let ranNum = Math.floor((Math.random() * gameTabs.length));
+        let generatedLink = gameTabs[ranNum];
+        let generatedIconId = gameIcons[ranNum];
+        let generatedText = gameText[ranNum];
+
+        // apply icon and text to home elements
+        let imageContainer = document.getElementsByClassName('image_container')[0];
+        let imageElement = document.createElement('img');
+        imageElement.src = generatedIconId;
+        imageElement.alt = generatedText + " Preview";
+        imageContainer.appendChild(imageElement);
+        let gameTitle = document.getElementsByClassName('game_title')[0];
+        gameTitle.innerHTML = generatedText;
+        let link = document.getElementsByClassName('nav-link')[0];
+        link.herf = generatedLink;
+    }
 }
 </script>
 
@@ -116,16 +156,20 @@ export default {
     align-items: center;
 }
 
-.featured > div{
+.featured > a{
     width: 70%;
     height: 90%;
     background-color: var(--cus-black);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .image_container{
-    width: 60%;
-    height: 70%;
-    margin: 5% 20%;
+    align-self: center;
+    width: 500px;
+    height: 500px;
+    margin: 20px 20px;
 }
 .image_container img{
     width: 100%;
