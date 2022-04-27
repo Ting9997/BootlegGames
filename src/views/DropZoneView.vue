@@ -18,7 +18,7 @@
 
     <!-- Bibliography -->
     <div class="bios-container">
-        <div class="bios">Bios 1</div>
+        <div class="bios">[Rajiv Williams]</div>
         <div class="bios">Bios 2</div>
         <div class="bios">Bios 3</div>
         <div class="bios">Bios 4</div>
@@ -114,5 +114,6 @@ export default {
     width: 15%;
     background-color: var(--cus-white);
     text-align: center;
+    opacity: 0.5;
 }
 </style>

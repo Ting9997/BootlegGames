@@ -1,31 +1,25 @@
 <template>
-    <dl id="GameList">
-        <dt>
-            <div class="game-list-item">
-                <a class="nav-link game-list-item" href="/games/checkers">
-                   <p>Checkers Game</p> 
-                   <img id="checkers_preview" src="../assets/checkers_preview.png" alt="Checkers Preview">
-                </a>
-                
-            </div>
-        </dt>
-        <dt>
-            <div class="game-list-item">
-                <a class="nav-link" href="/games/snake">
-                    <p>Snake Game</p> 
-                   <img id="checkers_preview" src="../assets/snake_preview.png" alt="Snake Preview">
-                </a>
-            </div>
-        </dt>
-        <dt>
-            <div class="game-list-item">
-                <a class="nav-link" href="/games/balldown">
-                    <p>BallDown</p> 
-                   <img id="checkers_preview" src="../assets/balldown_preview.png" alt="BallDown Preview">
-                </a>
-            </div>
-        </dt>
-    </dl>
+    <div id="GameList">
+        <div class="game-list-item">
+            <a class="nav-link" href="/games/checkers">
+                <p>Checkers Game</p> 
+                <img id="checkers_preview" src="../assets/checkers_preview.png" alt="Checkers Preview">
+            </a>
+            
+        </div>
+        <div class="game-list-item">
+            <a class="nav-link" href="/games/snake">
+                <p>Snake Game</p> 
+                <img id="checkers_preview" src="../assets/snake_preview.png" alt="Snake Preview">
+            </a>
+        </div>
+        <div class="game-list-item">
+            <a class="nav-link" href="/games/balldown">
+                <p>BallDown</p> 
+                <img id="checkers_preview" src="../assets/balldown_preview.png" alt="BallDown Preview">
+            </a>
+        </div>
+    </div>
 </template>
 
 <!-- _______________________________________________________________ -->
@@ -46,6 +40,10 @@ export default {
     background-color: var(--cus-trans-black);
 }
 #GameList{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 25px;
+    padding-bottom: 25px;
     margin: auto;
 }
 #checkers_preview{
