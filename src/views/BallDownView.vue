@@ -13,7 +13,7 @@
     
 
     <div v-if="gamePage == 0" class="startPage">
-        <p class="gametitle">BALLDOWN</p>
+        <h1 class="gametitle">BALLDOWN</h1>
         <div @click="gamePage = 1" class="button">PLAY</div>
     </div>
 
@@ -23,7 +23,7 @@
     </div>
 
     <div v-if="gamePage == 2" class="startPage">
-        <p class="score">SCORE: {{score}}</p>
+        <h1 class="score">SCORE: {{score}}</h1>
         <div @click="gamePage = 1" class="button">PLAY AGAIN</div>
         <div @click="gamePage = 0" class="button">MAIN MENU</div>
     </div>
@@ -78,7 +78,7 @@ export default {
     justify-content: center;
     font-family: "Jost", sans-serif;
     font-size:14px;
-    background-image: linear-gradient(to bottom left, #122d85, #c40202);
+    background-image: linear-gradient(to bottom left, #ff7396, #58355E);
 }
 .button{
   position: relative;
@@ -98,12 +98,17 @@ export default {
 }
 
 .score {
+    font-family: "Jost", sans-serif;
     font-size: 24px;
     color: white;
     padding: 0.8em 1.8em;
+    text-shadow: 2px 2px 8px #000000;
+
 }
 .gametitle{
+    font-family: "Jost", sans-serif;
     font-size: 35px;
     color: white;
+    text-shadow: 2px 2px 8px #000000;
 }
 </style>

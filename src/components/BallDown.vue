@@ -132,6 +132,7 @@
                 // MAKING THE BALL MOVE DEPENDING ON SPEED
                 this.ball.y+=this.ballYSpd;
                 this.ball.x+=this.ballXSpd;
+
             },
             cancel_draw() {
                 cancelAnimationFrame(this.id);
@@ -149,14 +150,13 @@
                 }
             },
             onKeyUp(){
-                this.ballXSpd = 0;
-                // if (this.ballSpd > 0) {
-                //     this.ballSpd-=1;
-                // }else if (this.ballSpd<0) {
-                //     this.ballSpd+=1;
-                // }else{
-                //     this.ballSpd = 0;
-                // }
+                if (this.ballXSpd > 0) {
+                    this.ballXSpd-=2;
+                }else if (this.ballXSpd<0) {
+                    this.ballXSpd+=2;
+                }else{
+                    this.ballXSpd = 0;
+                }
             },       
             draw(){
                 this.context.clearRect(0,0,this.$refs.game.width,this.$refs.game.height);
