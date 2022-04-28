@@ -85,10 +85,6 @@ export default {
           $("span").click(showMoves);
         }
         
-        if(gameEnd){
-          //display replay button
-          $("#replay_button").removeAttr("class");
-        }
       });
     }
 }
@@ -139,16 +135,19 @@ function checkWinCond(isTrapped){
     if(redCount == 1 && blackCount == 1){
       //draw
       displayWin("NONE");
+      gameEnd = true;
       return true;
     }
     if(blackCount == 0){
       //red wins
       displayWin("RED");
+      gameEnd = true;
       return true;
     }
     if(redCount == 0){
       //black wins
       displayWin("BLACK");
+      gameEnd = true;
       return true;
     }
   }
@@ -157,11 +156,13 @@ function checkWinCond(isTrapped){
     if(blackCount == 1 && (redCount > blackCount)){
       //red wins
       displayWin("RED");
+      gameEnd = true;
       return true;
     }
     if(redCount == 1 && (redCount < blackCount)){
       //black wins
       displayWin("BLACK");
+      gameEnd = true;
       return true;
     }
   }
@@ -315,7 +316,7 @@ function checkAvailability(moves,currCoords,isJump){
   var newCell = $("#cell"+(newX)+(newY));
 
   //if the cell is vacant and doesn't have a checker
-  if(newCell.children().length == 0){
+  if(newCell.children().length == 0 && !gameEnd){
     addGlow(x,y,newX,newY,isJump);
     return true;
   }
@@ -399,7 +400,7 @@ function makeMove(moves,checkerValue,currCoords,isJump){
   var newCell = $("#cell"+(newX)+(newY));
 
   //if cell is available
-  if(newCell.attr("class") == "glow"){
+  if(newCell.attr("class") == "glow" && !gameEnd){
     //new cell can be clickable
     newCell.click(function(){
       //if new cell is empty and the checker being used is the same as its pieceValue (to double check)
@@ -487,6 +488,8 @@ function changeCells(newCell,pieceValue,x,y,isJump){
     //check winning condition every time a move is made
     gameEnd = checkWinCond(false);
     if(gameEnd){
+      //display replay button
+      $("#replay_button").removeAttr("class");
       return true;
     }
   }
