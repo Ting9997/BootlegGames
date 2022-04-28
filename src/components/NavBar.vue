@@ -27,7 +27,7 @@
                 </li>
             </ul>
             <div>
-                <p class="logged-in-name">{{username}}</p>
+                <p v-if="isLoggedIn" class="logged-in-name">{{username}}</p>
             </div>
             </div>
         </div>
