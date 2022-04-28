@@ -69,7 +69,7 @@ export default {
 }
 .startPage{
     margin: auto;
-    width: 420px;
+    width: 480px;
     height: 640px;
     border: 1px solid black;
     display: flex;
@@ -87,13 +87,8 @@ export default {
   font-size: 16px;
   color: white;
   padding: 0.8em 1.8em;
-//   cursor:pointer;
-//   user-select:none;
-//   text-align: center;
-//   text-decoration: none;
   cursor: pointer;
   transition-duration: 0.4s;
-//   -webkit-transition-duration: 0.4s; /* Safari */
   margin: 1em;  
 }
 
@@ -101,34 +96,6 @@ export default {
   transition-duration: 0.1s;
   background-color: #974da5;
 }
-
-// .button:after {
-//   content: "";
-//   display: block;
-//   position: absolute;
-//   border-radius: 4em;
-//   left: 0;
-//   top:0;
-//   width: 100%;
-//   height: 100%;
-//   opacity: 0;
-//   transition: all 0.5s;
-//   box-shadow: 0 0 10px 40px white;
-// }
-
-// .button:active:after {
-//   box-shadow: 0 0 0 0 white;
-//   position: absolute;
-//   border-radius: 4em;
-//   left: 0;
-//   top:0;
-//   opacity: 1;
-//   transition: 0s;
-// }
-
-// .button:active {
-//   top: 1px;
-// }
 
 .score {
     font-size: 24px;

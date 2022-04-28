@@ -78,6 +78,7 @@ export default {
 }
 .logged-in-name{
     color: white;
+    -webkit-text-stroke-color: white;
 }
 
 </style>

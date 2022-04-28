@@ -91,7 +91,8 @@
             ballPlatformCollision(ball, platform) {
                 if ((ball.y+ball.r>=platform.y-10 && ball.y<platform.y+(platformWidth/2))&&
                     (ball.x<=platform.platformBreak+ball.r||ball.x>=platform.platformBreak+platform.breakWidth-ball.r)) {
-                    ball.y = platform.y-ball.r-14; // ALTERNATE WAY OF DOING BELOW
+                    ball.y = platform.y-ball.r-14; 
+                    // ALTERNATE WAY OF DOING BELOW
                     // this.ballYSpd = this.platformSpd;
                     this.isBallPlatformCollide = true;
                 }else{
@@ -116,31 +117,21 @@
 
                 for (let i = 0; i < platforms.length; i++) {
                     const element = platforms[i];
-                    // this.createdPlatform(element);
-                    // element.y+=this.platformSpd;
                     this.ballPlatformCollision(this.ball, element);
-                    // SENDING PLATFORM BACK TO BOTTOM WHEN IT REACHES TOP
+                    // CREATING ANOTHER PLATFORM AT BOTTOM WHEN ONE REACHES TOP
                     if (element.y<-10) {
-                        // element.y = 1400
                         let breakPoint = Math.floor(Math.random()*400);
                         let breakLength = Math.floor(Math.random()*100)+50;
+                        //INCREASING SCORE IF A PLATFORM REACHES THE END
                         this.score+=1;
                         platforms.shift();
                         platforms.push(new Platform(650, breakPoint, breakLength));
                     }
                 }
 
-
-                this.ball.y+=this.ballYSpd;
                 // MAKING THE BALL MOVE DEPENDING ON SPEED
+                this.ball.y+=this.ballYSpd;
                 this.ball.x+=this.ballXSpd;
-                // if (this.ballXSpd > 0) {
-                //     this.ballXSpd-=0.05;
-                // }else if (this.ballXSpd<0) {
-                //     this.ballXSpd+=0.05;
-                // }else{
-                //     this.ballXSpd = 0;
-                // }
             },
             cancel_draw() {
                 cancelAnimationFrame(this.id);
@@ -189,17 +180,7 @@
                     const element = platforms[i];
                     this.createdPlatform(element);
                     element.y+=this.platformSpd;
-                    // this.ballPlatformCollision(this.ball, element);
-                    // if (element.y<-10) {
-                    //     let breakPoint = Math.floor(Math.random()*400);
-                    //     let breakLength = Math.floor(Math.random()*100)+50;
-                    //     platforms.shift();
-                    //     platforms.push(new Platform(640, breakPoint, breakLength));
-                    // }
                 }
-                // this.ball.y+=this.ballYSpd;
-                // // MAKING THE BALL MOVE DEPENDING ON SPEED
-                // this.ball.x+=this.ballXSpd;
 
                 this.updateGame();
 
@@ -207,9 +188,9 @@
                 this.id = requestAnimationFrame(this.draw);
                 if (this.ball.y <= 10) {
                     this.cancel_draw();
-                    // CHANGES THE isGameStarted BOOLEAN TO FALSE 
-                    // FORCING THE GAME TO SHOW THE MAIN PAGE
+                    // EMITS THE SCORE BACK TO BALLDOWNVIEW
                     this.$emit('score', this.score);
+                    // CHANGES THE GAMEPAGE TO GAMEENDED PAGE
                     this.$emit('response', 2);
                 }
             }
