@@ -210,17 +210,22 @@ export default {
     /* border: 2px solid black; */
     height: 327px;
     width: 15%;
-    background-color: var(--cus-white);
+    background-color: #9bf7ff;
     text-align: center;
     opacity: 0.7;
-    background-image: url(../assets/pattern3.jpg);
+    // background-image: url(../assets/pattern3.jpg);
     background-size: 230px;
     background-position: center;
     border-radius: 1em;
+    transition-duration: 0.4s;
+
 }
 
 .bios:hover{
     opacity: 1.0;
+    transition-duration: 1s;
+    box-shadow: 10px 10px #47dd53c9;
+    background-color: #c21f76d9;
 }
 .bio-text-container{
     height: 327px;
