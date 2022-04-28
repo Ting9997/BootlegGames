@@ -21,35 +21,35 @@
         <p class="bio-container-title">Developers</p>
         <div class="bios-container-inner">
             <div class="bios">
-                <a href="/contacts/rajiv_williams">
+                <a href="/contacts/#rajiv_williams">
                     <svg class="bio-text-container">
                         <text class="bio-text" x="15" y="170">Rajiv Williams</text>
                     </svg>
                 </a>
             </div>
             <div class="bios">
-                <a href="/contacts/andy_wang">
+                <a href="/contacts/#andy_wang">
                     <svg class="bio-text-container">
                         <text class="bio-text" x="30" y="170">Andy Wang</text>
                     </svg>
                 </a>
             </div>
             <div class="bios">
-                <a href="/contacts/ting_wu">
+                <a href="/contacts/#ting_wu">
                     <svg class="bio-text-container">
                         <text class="bio-text" x="45" y="170">Ting Wu</text>
                     </svg>
                 </a>
             </div>
             <div class="bios">
-                <a href="/contacts/marco_ma">
+                <a href="/contacts/#marco_ma">
                     <svg class="bio-text-container">
                         <text class="bio-text" x="35" y="170">Marco Ma</text>
                     </svg>
                 </a>
             </div>
             <div class="bios">
-                <a href="/contacts/owais_najmi">
+                <a href="/contacts/#owais_najmi">
                     <svg class="bio-text-container">
                         <text class="bio-text" x="23" y="170">Owais Najmi</text>
                     </svg>
@@ -213,6 +213,9 @@ export default {
     background-color: var(--cus-white);
     text-align: center;
     opacity: 0.7;
+    background-image: url(../assets/pattern3.jpg);
+    background-size: 230px;
+    background-position: center;
 }
 
 .bios:hover{
@@ -223,7 +226,7 @@ export default {
     width: 100%;
 }
 .bio-text-container:hover{
-    opacity: 0.3;
+    opacity: 1.0;
 }
 .bio-text{
     font-family: var(--cus-title-font);

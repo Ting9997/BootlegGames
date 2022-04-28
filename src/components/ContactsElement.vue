@@ -1,7 +1,7 @@
 <template>
     <div id="contact-list-container">
         <dl id="contactList">
-            <dt href="/contacts/rajiv_williams">
+            <dt id="rajiv_williams">
                 Rajiv Williams
             </dt>
             <dd>
@@ -9,7 +9,7 @@
                     LinkedIn Account
                 </a>
             </dd>
-            <dt href="/contacts/andy_wang">
+            <dt id="andy_wang">
                 Andy Wang
             </dt>
             <dd>
@@ -17,7 +17,7 @@
                     LinkedIn Account
                 </a>
             </dd>
-            <dt href="/contacts/ting_wu">
+            <dt id="ting_wu">
                 Ting Wu
             </dt>
             <dd>
@@ -25,7 +25,7 @@
                     LinkedIn Account
                 </a>
             </dd>
-            <dt href="/contacts/marco_ma">
+            <dt id="marco_ma">
                 Marco Ma
             </dt>
             <dd>
@@ -33,7 +33,7 @@
                     LinkedIn Account
                 </a>
             </dd>
-            <dt href="/contacts/owais_najmi">
+            <dt id="owais_najmi">
                 Owais Najmi
             </dt>
             <dd>

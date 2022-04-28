@@ -29,31 +29,6 @@ const routes = [
     name: 'login',
     component: LoginView
   },
-  {
-    path: '/contacts/rajiv_williams',
-    name: 'rajiv_williams',
-    component: ContactsView
-  },
-  {
-    path: '/contacts/andy_wang',
-    name: 'andy_wang',
-    component: ContactsView
-  },
-  {
-    path: '/contacts/ting_wu',
-    name: 'ting_wu',
-    component: ContactsView
-  },
-  {
-    path: '/contacts/marco_ma',
-    name: 'marco_ma',
-    component: ContactsView
-  },
-  {
-    path: '/contacts/owais_najmi',
-    name: 'owais_najmi',
-    component: ContactsView
-  },
    // {
   //   path: '/about'.
   //   name: 'about',
