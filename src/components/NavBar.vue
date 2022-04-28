@@ -19,10 +19,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/contacts">Contacts</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">About</a>
-                </li>
-
                 <li v-if="!isLoggedIn" class="nav-item">
                     <a class="nav-link" href="/login">Login</a>
                 </li>
