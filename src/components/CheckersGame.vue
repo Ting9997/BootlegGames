@@ -4,7 +4,7 @@
       PLAY
     </button>
   </div>
-  <button id="replay_button" class="hidden">
+  <button id="replay_button">
     REPLAY
   </button>
   <table id="checkersGrid" class="hidden">
@@ -78,10 +78,14 @@ export default {
         //Initializing whos_turn
         displayTurn("RED");
 
+        //initially hiding the replay button
+        $("#replay_button").attr("class","hidden");
+
         if(!gameEnd){
           $("span").click(showMoves);
         }
-        else{
+        
+        if(gameEnd){
           //display replay button
           $("#replay_button").removeAttr("class");
         }
@@ -446,9 +450,18 @@ function changeCells(newCell,pieceValue,x,y,isJump){
 
     //color of checker being deleted
     var deleteColor = deleteChecker.attr("class").split("_")[0];
+    var deleteKingColor = deleteChecker.attr("class").split("_")[1];
+
+    /*
+      updates the color of the checker being deleted if it is a king
+      (makes sure you cannot jump over your own king)
+    */
+    if(deleteKingColor != "checker"){
+      deleteColor = deleteKingColor;
+    }
 
     //remove checker that is jumped over if it is not the same color as current checker
-    if(deleteColor != checkerColor && deleteColor != kingColor){
+    if(deleteColor != checkerColor){
       deleteChecker.remove();
       boardArray[deleteCoords[0]][deleteCoords[1]] = -1;
     }
@@ -473,12 +486,16 @@ function changeCells(newCell,pieceValue,x,y,isJump){
     
     //check winning condition every time a move is made
     gameEnd = checkWinCond(false);
+    if(gameEnd){
+      return true;
+    }
   }
 
   //if new cell is successfully occupied
-  if(newCell.children().length > 0 && !gameEnd){
+  if(newCell.children().length > 0){
     changeTurn();
-  }  
+  }
+  return true;  
 }
 
 /*
