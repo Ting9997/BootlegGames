@@ -13,6 +13,6 @@ Link to Independent Study https://docs.google.com/presentation/d/1itoU3nGbcSUmXs
 ### How To Run 
 
 1. git clone this repository.
-2. navigate to the repository using your local environment that runs npm (Vue.js)
+2. Navigate to the repository using your local environment that runs npm (Vue.js)
 3. Run "npm run serve" (Install packages if necessary)
 4. Open link provided within the local environment (eg. http://localhost:8080/)
