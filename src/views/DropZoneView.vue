@@ -70,6 +70,7 @@ import snakePreview from "@/assets/snake_preview.png"; // Andy's Game
 import connect4Preview from "@/assets/connect4_preview.jpg"; // Ting's Game
 import checkersPreview from "@/assets/checkers_preview.png"; // Rajiv's Game
 import balldownPreview from "@/assets/balldown_preview.png"; // Owais's Game
+import battleshipPreview from "@/assets/battleship_preview.png"; //Marco's Game 
 import $ from 'jquery';
 
 
@@ -84,19 +85,22 @@ export default {
             "/games/snake", // Andy's Game
             "/games/connect4", // Ting's Game
             "/games/checkers", // Rajiv's Game
-            "/games/balldown" // Owais's Game
+            "/games/balldown", // Owais's Game
+            "/games/battleship"// Marco's Game
         ]
         var gameIcons = [
             snakePreview, // Andy's Game
             connect4Preview, // Ting's Game
             checkersPreview, // Rajiv's Game
-            balldownPreview // Owais's Game
+            balldownPreview, // Owais's Game
+            battleshipPreview //Marco's Game
         ]
         var gameText = [
             "Snake", // Andy's Game
             "Connect 4", // Ting's Game
             "Checkers", // Rajiv's Game
-            "Balldown" // Owais's Game
+            "Balldown", // Owais's Game
+            "Battle Ship" //Marco's Game
         ]
         // generate game link info
         let ranNum = Math.floor((Math.random() * gameTabs.length));
