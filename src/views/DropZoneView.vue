@@ -20,7 +20,7 @@
     <div class="bios-container-outter">
         <p class="bio-container-title">Developers</p>
         <div class="bios-container-inner">
-            <div class="bios" id="rajiv">
+            <div class="bios">
                 <a href="/contacts/rajiv_williams">
                     <svg class="bio-text-container">
                         <text class="bio-text" x="15" y="170">Rajiv Williams</text>
@@ -229,11 +229,6 @@ export default {
     font-family: var(--cus-title-font);
     font-size: 25px;
   
-}
-#rajiv{
-    background-image: url(../assets/rajiv_biophoto.jpg);
-    background-size: 230px;
-    background-position: center;
 }
 
 </style>
