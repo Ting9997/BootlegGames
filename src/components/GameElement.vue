@@ -27,6 +27,12 @@
                 <img id="checkers_preview" src="../assets/connect4_preview.jpg" alt="Connect Four">
             </a>
         </div>
+        <div class="game-list-item">
+            <a class="nav-link" href="/games/battleship">
+                <p>Battleship</p> 
+                <img id="checkers_preview" src="../assets/battleship_preview.png" alt="Battleship Preview">
+            </a>
+        </div>
     </div>
 </template>
 
