@@ -216,6 +216,7 @@ export default {
     background-image: url(../assets/pattern3.jpg);
     background-size: 230px;
     background-position: center;
+    border-radius: 1em;
 }
 
 .bios:hover{
