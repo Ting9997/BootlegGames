@@ -35,7 +35,7 @@
                 </a>
             </div>
             <div class="bios">
-                <a href="/contacts/ting wu">
+                <a href="/contacts/ting_wu">
                     <svg class="bio-text-container">
                         <text class="bio-text" x="45" y="170">Ting Wu</text>
                     </svg>
