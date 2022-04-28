@@ -1,7 +1,8 @@
 <template>
     <p id="yellowTurn" class="hidden">Yellow's Turn</p>
     <p id="redTurn" class="hidden">Red's Turn</p>
-    <div id="grid"></div>
+    <div id="grid"></div><br>
+    <button class="btn">Restart Game</button>
     <div class="game_page_footer">Developed By: Ting Jian Wu</div>
 </template>
 
@@ -12,6 +13,7 @@ export default {
     name: "Connect4Game",
     mounted() {
         var turn;
+        var gameOver = false;
 
         // Random color goes first
         if (Math.floor(Math.random() * 2) == 0){
@@ -82,27 +84,33 @@ export default {
 
         // Determine which column number the user clicks
         $('.emptyCol').on('click', function(){
-            const colNum = $(this).attr('colnumber')
-            const colEntry = getColumn(colNum);
+            if (gameOver === false){
+                const colNum = $(this).attr('colnumber')
+                const colEntry = getColumn(colNum);
 
-            if (colEntry != null){
-                if (turn === 'redCol'){
-                    turn = 'yellowCol';
-                    $("#yellowTurn").addClass("hidden");
-                    $("#redTurn").removeClass("hidden");
-                }
-                else if (turn == 'yellowCol'){
-                    turn = 'redCol';
-                    $("#redTurn").addClass("hidden");
-                    $("#yellowTurn").removeClass("hidden");
-                }
-                colEntry.addClass(turn);
-                if (checkVertical(colNum) || checkHorizontal(colNum) || checkDiagonal()){
-                    alert("Game Over!");
+                if (colEntry != null){
+                    if (turn === 'redCol'){
+                        turn = 'yellowCol';
+                        $("#yellowTurn").addClass("hidden");
+                        $("#redTurn").removeClass("hidden");
+                    }
+                    else if (turn == 'yellowCol'){
+                        turn = 'redCol';
+                        $("#redTurn").addClass("hidden");
+                        $("#yellowTurn").removeClass("hidden");
+                    }
+                    colEntry.addClass(turn);
+                    if (checkVertical(colNum) || checkHorizontal(colNum) || checkDiagonal()){
+                        gameOver = true;
+                        alert("Game Over!");
+                    }
                 }
             }
+        })
 
-
+        // Restart game
+        $('.btn').on('click', function(){
+            location.reload()
         })
 
         function getColumn(colNum){
@@ -346,13 +354,6 @@ export default {
             return false;
 
         }
-    },
-    data(){
-        return {
-            playerTurn: '',
-            displayRed: false,
-            displayYellow: false
-        }
     }
 }
 </script>
@@ -363,7 +364,7 @@ export default {
 #grid {
     background: blue;
     display: inline-block;
-    margin-bottom: 98px;
+    /* margin-bottom: 50px; */
 }
 
 #yellowTurn, #redTurn{
@@ -390,5 +391,14 @@ export default {
 .hidden{
     display: none;
 }
+
+.btn{
+    border: 2px solid black;
+    margin-top: 15px;
+    margin-bottom: 50px;
+    background-color: red;
+}
+
+
 
 </style>
