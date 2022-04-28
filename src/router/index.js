@@ -6,6 +6,7 @@ import CheckersView from '../views/CheckersView.vue';
 import SnakeView from '../views/SnakeView.vue';
 import BallDownView from '../views/BallDownView.vue';
 import Connect4 from '../views/ConnectFourView.vue';
+import LoginView from '../views/LoginView.vue';
 
 const routes = [
   {
@@ -22,6 +23,11 @@ const routes = [
     path: '/contacts',
     name: 'contacts',
     component: ContactsView
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView
   },
   {
     path: '/contacts/rajiv_williams',

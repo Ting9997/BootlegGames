@@ -22,15 +22,45 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">About</a>
                 </li>
+
+                <li v-if="!isLoggedIn" class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li v-if="isLoggedIn" class="nav-item">
+                    <a class="nav-link" v-on:click="logout" href="/login">Logout</a>
+                </li>
             </ul>
+            <div>
+                <p class="logged-in-name">{{username}}</p>
+            </div>
             </div>
         </div>
     </nav>
 </template>
 
 <script>
+import authorize from '@/js/authorize'
 export default {
     name: "DropZone",
+    data() {
+        return {
+            username: localStorage.getItem('username'),
+            password: localStorage.getItem('password'),
+            isLoggedIn: authorize.isLoggedIn()
+        }
+    },
+    created(){
+        authorize.onLoginStatus = isLoggedIn =>{
+            this.isLoggedIn = isLoggedIn;
+        }
+    },
+    methods:{
+        logout: function(){
+            authorize.logout((res)=>{
+                console.log(res)
+            });
+        }
+    }
 }
 </script>
 
@@ -49,6 +79,9 @@ export default {
 .nav-link{
     color: var(--cus-white) !important;
     font-family: var(--cus-title-font);
+}
+.logged-in-name{
+    color: white;
 }
 
 </style>
